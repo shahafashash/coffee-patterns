@@ -55,7 +55,7 @@
 			"    \"\"\"",
 			"    def ${6:factory_method}(self) -> ${4:ConcreteProductB}:",
 			"        return ${4:ConcreteProductB}()",
-			"",
+			""
 		],
 		"description": "Implements the Factory design pattern in Python.\n\nDefines:\n- An abstract class for products\n- Concrete product classes that implement the interface\n- An abstract creator class with a factory method\n- Concrete creator classes that override the factory method to create specific product instances.\n\nExample:\n```python\nfrom abc import ABC, abstractmethod\n\n# Product\nclass Coffee(ABC):\n    @abstractmethod\n    def brew(self) -> None:\n        pass\n\n# ConcreteProduct\nclass Espresso(Coffee):\n    def brew(self) -> None:\n        print(\"Brewing Espresso\")\n\n# ConcreteProduct\nclass Latte(Coffee):\n    def brew(self) -> None:\n        print(\"Brewing Latte\")\n\n# Creator\nclass CoffeeMachine(ABC):\n    @abstractmethod\n    def create_coffee(self) -> Coffee:\n        pass\n\n# ConcreteCreator\nclass EspressoMachine(CoffeeMachine):\n    def create_coffee(self) -> Espresso:\n        return Espresso()\n\n# ConcreteCreator\nclass LatteMachine(CoffeeMachine):\n    def create_coffee(self) -> Latte:\n        return Latte()\n\n# Client\ndef main() -> None:\n    espresso_machine = EspressoMachine()\n    latte_machine = LatteMachine()\n\n    espresso_machine.create_coffee().brew()\n    latte_machine.create_coffee().brew()\n\nif __name__ == \"__main__\":\n    main()```"
 	},
@@ -151,7 +151,7 @@
 			"",
 			"    def ${11:factory_method_b}(self) -> ${8:ConcreteProductB2}:",
 			"        return ${8:ConcreteProductB2}()",
-			"",
+			""
 		],
 		"description": "Creates an Abstract Factory design pattern structure in Python.\nDefines:\n- Abstract product classes\n- Concrete product classes\n- An abstract factory class with factory methods for each product\n- Concrete factory classes that override the factory methods to produce specific product instances.\n\nExample:\nfrom abc import ABC, abstractmethod\n\n# AbstractProductA\nclass CoffeeBean(ABC):\n    @abstractmethod\n    def grind(self) -> None:\n        pass\n\n# ConcreteProductA\nclass ArabicaBean(CoffeeBean):\n    def grind(self) -> None:\n        print(\"Grinding Arabica Beans\")\n\n# ConcreteProductA\nclass RobustaBean(CoffeeBean):\n    def grind(self) -> None:\n        print(\"Grinding Robusta Beans\")\n\n# AbstractProductB\nclass Milk(ABC):\n    @abstractmethod\n    def froth(self) -> None:\n        pass\n\n# ConcreteProductB\nclass WholeMilk(Milk):\n    def froth(self) -> None:\n        print(\"Frothing Whole Milk\")\n\n# ConcreteProductB\nclass AlmondMilk(Milk):\n    def froth(self) -> None:\n        print(\"Frothing Almond Milk\")\n\n# AbstractFactory\nclass CoffeeFactory(ABC):\n    @abstractmethod\n    def create_coffee_bean(self) -> CoffeeBean:\n        pass\n\n    @abstractmethod\n    def create_milk(self) -> Milk:\n        pass\n\n# ConcreteFactory1\nclass ArabicaLatteFactory(CoffeeFactory):\n    def create_coffee_bean(self) -> CoffeeBean:\n        return ArabicaBean()\n\n    def create_milk(self) -> Milk:\n        return WholeMilk()\n\n# ConcreteFactory2\nclass RobustaAlmondLatteFactory(CoffeeFactory):\n    def create_coffee_bean(self) -> CoffeeBean:\n        return RobustaBean()\n\n    def create_milk(self) -> Milk:\n        return AlmondMilk()\n\n# Client\ndef main() -> None:\n    arabica_latte_factory = ArabicaLatteFactory()\n    robusta_almond_latte_factory = RobustaAlmondLatteFactory()\n\n    arabica_latte_factory.create_coffee_bean().grind()\n    arabica_latte_factory.create_milk().froth()\n\n    robusta_almond_latte_factory.create_coffee_bean().grind()\n    robusta_almond_latte_factory.create_milk().froth()\n\nif __name__ == \"__main__\":\n    main()"
 	},
@@ -222,7 +222,7 @@
 			"    def build_${3:part2}(self) -> ${7:ConcreteBuilder}:",
 			"        self._product.add_${3:part2}()",
 			"        return self",
-			"",
+			""
 		],
 		"description": "Constructs a Builder design pattern structure in Python.\nDefines:\n- A product class with complex construction\n- An abstract builder class with methods for building parts of the product\n- A concrete builder class that implements the builder interface.\nThis pattern enables the step-by-step construction of a complex object.\n\nExample:\nfrom abc import ABC, abstractmethod\n\n# Product\nclass Coffee:\n    def __init__(self) -> None:\n        self.parts = []\n\n    def add_beans(self) -> None:\n        self.parts.append(\"Coffee Beans\")\n\n    def add_water(self) -> None:\n        self.parts.append(\"Water\")\n\n# Builder\nclass CoffeeBuilder(ABC):\n    @abstractmethod\n    def build_beans(self) -> None:\n        pass\n\n    @abstractmethod\n    def build_water(self) -> None:\n        pass\n\n    @abstractmethod\n    def get_coffee(self) -> Coffee:\n        pass\n\n# ConcreteBuilder\nclass LatteBuilder(CoffeeBuilder):\n    def __init__(self) -> None:\n        self._coffee = Coffee()\n\n    def build_beans(self) -> None:\n        self._coffee.add_beans()\n\n    def build_water(self) -> None:\n        self._coffee.add_water()\n\n    def get_coffee(self) -> Coffee:\n        return self._coffee\n\n# Client\ndef main() -> None:\n    latte_builder = LatteBuilder()\n    latte_builder.build_beans()\n    latte_builder.build_water()\n    latte = latte_builder.get_coffee()\n\nif __name__ == \"__main__\":\n    main()"
 	},
@@ -316,9 +316,9 @@
 			"",
 			"    def get_product(self) -> ${1:Product}:",
 			"        return self.builder.product",
-			"",
+			""
 		],
-		"description": "Creates a Builder design pattern structure with a Director in Python. Combines the Builder and Director patterns to facilitate the construction of a complex object. The Director class orchestrates the building process using a builder, ensuring a consistent construction sequence.\n\nExample:\nfrom abc import ABC, abstractmethod\n\n# Product\nclass Coffee:\n    def __init__(self) -> None:\n        self.parts = []\n\n    def add_beans(self) -> None:\n        self.parts.append(\"Coffee Beans\")\n\n    def add_water(self) -> None:\n        self.parts.append(\"Water\")\n\n# Builder\nclass CoffeeBuilder(ABC):\n    @abstractmethod\n    def build_beans(self) -> None:\n        pass\n\n    @abstractmethod\n    def build_water(self) -> None:\n        pass\n\n    @abstractmethod\n    def get_coffee(self) -> Coffee:\n        pass\n\n# ConcreteBuilder\nclass LatteBuilder(CoffeeBuilder):\n    def __init__(self) -> None:\n        self._coffee = Coffee()\n\n    def build_beans(self) -> None:\n        self._coffee.add_beans()\n\n    def build_water(self) -> None:\n        self._coffee.add_water()\n\n    def get_coffee(self) -> Coffee:\n        return self._coffee\n\n# Director\nclass Barista:\n    def __init__(self) -> None:\n        self._builder = None\n\n    @property\n    def builder(self) -> CoffeeBuilder:\n        return self._builder\n\n    @builder.setter\n    def builder(self, builder: CoffeeBuilder) -> None:\n        self._builder = builder\n\n    def make_coffee(self) -> None:\n        self.builder \/\n            .build_beans() \/\n            .build_water()\n\n    def get_coffee(self) -> Coffee:\n        return self.builder.get_coffee()\n\n# Client\ndef main() -> None:\n    barista = Barista()\n    barista.builder = LatteBuilder()\n    barista.make_coffee()\n    latte = barista.get_coffee()\n\nif __name__ == \"__main__\":\n    main()"
+		"description": "Creates a Builder design pattern structure with a Director in Python. Combines the Builder and Director patterns to facilitate the construction of a complex object. The Director class orchestrates the building process using a builder, ensuring a consistent construction sequence.\n\nExample:\nfrom abc import ABC, abstractmethod\n\n# Product\nclass Coffee:\n    def __init__(self) -> None:\n        self.parts = []\n\n    def add_beans(self) -> None:\n        self.parts.append(\"Coffee Beans\")\n\n    def add_water(self) -> None:\n        self.parts.append(\"Water\")\n\n# Builder\nclass CoffeeBuilder(ABC):\n    @abstractmethod\n    def build_beans(self) -> None:\n        pass\n\n    @abstractmethod\n    def build_water(self) -> None:\n        pass\n\n    @abstractmethod\n    def get_coffee(self) -> Coffee:\n        pass\n\n# ConcreteBuilder\nclass LatteBuilder(CoffeeBuilder):\n    def __init__(self) -> None:\n        self._coffee = Coffee()\n\n    def build_beans(self) -> None:\n        self._coffee.add_beans()\n\n    def build_water(self) -> None:\n        self._coffee.add_water()\n\n    def get_coffee(self) -> Coffee:\n        return self._coffee\n\n# Director\nclass Barista:\n    def __init__(self) -> None:\n        self._builder = None\n\n    @property\n    def builder(self) -> CoffeeBuilder:\n        return self._builder\n\n    @builder.setter\n    def builder(self, builder: CoffeeBuilder) -> None:\n        self._builder = builder\n\n    def make_coffee(self) -> None:\n        self.builder /\n            .build_beans() /\n            .build_water()\n\n    def get_coffee(self) -> Coffee:\n        return self.builder.get_coffee()\n\n# Client\ndef main() -> None:\n    barista = Barista()\n    barista.builder = LatteBuilder()\n    barista.make_coffee()\n    latte = barista.get_coffee()\n\nif __name__ == \"__main__\":\n    main()"
 	},
 	"Singleton": {
 		"scope": "python",
@@ -351,7 +351,7 @@
 			"        Replace this with the actual functionality of your Singleton.",
 			"        \"\"\"",
 			"        pass",
-			"",
+			""
 		],
 		"description": "Implements the Singleton design pattern in Python.\nEnsures a class has only one instance and provides a global point of access to it.\nThis pattern involves a single class that is responsible for creating its own unique instance and ensuring that only a single instance exists.\n\nExample:\nclass SingletonMeta(type):\n    _instances = {}\n\n    def __call__(cls, *args, **kwargs):\n        if cls not in cls._instances:\n            cls._instances[cls] = super().__call__(*args, **kwargs)\n        return cls._instances[cls]\n\n# Singleton\nclass InfiniteCoffeeCup(metaclass=SingletonMeta):\n    def __init__(self) -> None:\n        self.coffee = float('inf')  # Infinite coffee\n\n    def drink(self, amount: float) -> None:\n        self.coffee -= amount\n\n    def coffee_left(self) -> float:\n        return self.coffee\n\n# Client\ndef main() -> None:\n    cup1 = InfiniteCoffeeCup()\n    cup2 = InfiniteCoffeeCup()\n\n    cup1.drink(0.5)\n    cup2.drink(0.25)\n\n    print(cup1.coffee_left())\n    print(cup2.coffee_left())\n\nif __name__ == \"__main__\":\n    main()"
 	},
@@ -389,10 +389,9 @@
 			"        Replace this with the actual functionality of your Singleton.",
 			"        \"\"\"",
 			"        pass",
-			"",
+			""
 		],
 		"description": "Implements the Thread-Safe Singleton design pattern in Python.\nEnsures that a class has only one instance and provides a global point of access to it, while being thread-safe.\nThis pattern involves using a lock or other mechanism to synchronize access to the singleton instance, preventing multiple threads from creating multiple instances simultaneously.\n\nExample:\nfrom typing import Any, Dict, Type\nfrom threading import Lock, Thread\n\nclass SingletonMeta(type):\n    _instances = {}\n    _lock = Lock()\n\n    def __call__(cls, *args, **kwargs):\n        with cls._lock:\n            if cls not in cls._instances:\n                cls._instances[cls] = super().__call__(*args, **kwargs)\n        return cls._instances[cls]\n\n# Singleton\nclass CoffeeShop(metaclass=SingletonMeta):\n    def __init__(self, name: str, owner: str) -> None:\n        self.name = name\n        self.owner = owner\n\n# Client\ndef main() -> None:\n    def create_coffee_shop(name: str, owner: str) -> None:\n        coffee_shop = CoffeeShop(name, owner)\n        print(f\"Created coffee shop {coffee_shop.name} owned by {coffee_shop.owner}\")\n\n    starbucks = Thread(target=create_coffee_shop, args=(\"Starbucks\", \"Howard Schultz\"))\n    dunkin = Thread(target=create_coffee_shop, args=(\"Dunkin\", \"William Rosenberg\"))\n\n    starbucks.start()\n    dunkin.start()\n    starbucks.join()\n    dunkin.join()\n\nif __name__ == \"__main__\":\n    main()"
-
 	},
 	"Prototype": {
 		"scope": "python",
@@ -432,7 +431,7 @@
 			"        new = self.__class__()",
 			"        new.__dict__ = copy.deepcopy(self.__dict__, memo)",
 			"        return new",
-			"",
+			""
 		],
 		"description": "Implements the Prototype design pattern in Python. Introduces a prototype class that defines the object to be cloned. Offers methods for creating shallow and deep copies of the object, allowing flexible instantiation of similar objects without specifying their classes."
 	},
@@ -547,7 +546,7 @@
 			"    \"\"\"",
 			"    def ${4:operation}(self) -> None:",
 			"        pass",
-			"",
+			""
 		],
 		"description": "Implements the Bridge design pattern in Python. Defines an abstract class for the abstraction, concrete classes that extend the abstraction, an abstract class for the implementor, and concrete classes that implement the implementor interface. This pattern decouples the abstraction from its implementation, allowing both to vary independently."
 	},
@@ -597,7 +596,7 @@
 			"    \"\"\"",
 			"    def ${2:operation}(self) -> None:",
 			"        # Additional functionality here",
-			"        self.${5:component}.${2:operation}()",
+			"        self.${5:component}.${2:operation}()"
 		],
 		"description": "Implements the Decorator design pattern in Python. Attaches additional responsibilities to an object dynamically."
 	},
@@ -648,11 +647,10 @@
 			"        \"\"\"",
 			"        Check if the user is authorized to access the real subject.",
 			"        \"\"\"",
-			"        return True",
+			"        return True"
 		],
 		"description": "Implements the Proxy design pattern in Python. Provides a surrogate or placeholder for another object to control access to it."
-	}
-	,
+	},
 	"Strategy": {
 		"scope": "python",
 		"prefix": "strategy",
@@ -697,7 +695,7 @@
 			"        \"\"\"",
 			"        Perform the operation by delegating to the strategy.",
 			"        \"\"\"",
-			"        self._${6:strategy}.${2:operation}()",
+			"        self._${6:strategy}.${2:operation}()"
 		],
 		"description": "Implements the Strategy design pattern in Python. Defines a family of algorithms, encapsulates each one, and makes them interchangeable. Allows the algorithm to vary independently from clients that use it."
 	},
@@ -758,7 +756,7 @@
 			"        pass",
 			"",
 			"    def ${7:required_operation_2}(self) -> None:",
-			"        pass",
+			"        pass"
 		],
 		"description": "Implements the Template Method design pattern in Python. Defines the algorithm's skeleton in an operation, allowing subclasses to customize specific steps without changing the overall structure."
 	},
@@ -830,7 +828,7 @@
 			"    Concrete observer class that implements the '${6:Observer}' interface.",
 			"    \"\"\"",
 			"    def ${7:update}(self, subject: ${1:Subject}) -> None:",
-			"        pass",
+			"        pass"
 		],
 		"description": "Implements the Observer design pattern in Python. Defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically."
 	},
@@ -927,7 +925,7 @@
 			"            # Handle the request",
 			"            return request.payload",
 			"        return super().${8:handle}(request)",
-			"",
+			""
 		],
 		"description": "Implements the Chain of Responsibility design pattern in Python. Avoids coupling the sender of a request to its receiver by giving more than one object a chance to handle the request. Chains the receiving objects and passes the request along the chain until an object handles it."
 	},
@@ -1000,10 +998,60 @@
 			"        if not self._mementos:",
 			"            return",
 			"        memento = self._mementos.pop()",
-			"        self._originator.${3:restore}(memento)",
+			"        self._originator.${3:restore}(memento)"
 		],
 		"description": "Implements the Memento design pattern in Python. Captures and externalizes an object's internal state so that it can be restored to this state later, without violating encapsulation."
+	},
+	"State": {
+		"scope": "python",
+		"prefix": "state",
+		"body": [
+			"from abc import ABC, abstractmethod",
+			"",
+			"class ${1:Context}:",
+			"  \"\"\"",
+			"  Context class that maintains an instance of a ConcreteState subclass defining the current state.",
+			"  \"\"\"",
+			"  def __init__(self, state: ${2:State}) -> None:",
+			"    # Initialize the '${1:Context}' object with the initial state.",
+			"    self._state: ${2:State} = state",
+			"",
+			"  def ${3:request}(self) -> None:",
+			"    # Delegate the request to the current state.",
+			"    self._state.${4:handle}(self)",
+			"",
+			"  def ${5:change_state}(self, state: ${2:State}) -> None:",
+			"    # Change the current state.",
+			"    self._state = state",
+			"",
+			"class ${2:State}(ABC):",
+			"  \"\"\"",
+			"  Abstract base class for '${2:State}' objects.",
+			"  Defines an interface for encapsulating the behavior associated with a particular state of the '${1:Context}' object.",
+			"  \"\"\"",
+			"  @abstractmethod",
+			"  def ${4:handle}(self, context: ${1:Context}) -> None:",
+			"    \"\"\"",
+			"    Abstract method that must be implemented by concrete states.",
+			"    \"\"\"",
+			"    pass",
+			"",
+			"class ${3:ConcreteStateA}(${2:State}):",
+			"  \"\"\"",
+			"  Concrete state class that extends the '${2:State}' interface.",
+			"  \"\"\"",
+			"  def ${4:handle}(self, context: ${1:Context}) -> None:",
+			"    # Handle the request and change the state of the context.",
+			"    pass",
+			"",
+			"class ${5:ConcreteStateB}(${2:State}):",
+			"  \"\"\"",
+			"  Another concrete state class that extends the '${2:State}' interface.",
+			"  \"\"\"",
+			"  def ${4:handle}(self, context: ${1:Context}) -> None:",
+			"    # Handle the request and change the state of the context.",
+			"    pass"
+		],
+		"description": "Implements the State design pattern in Python. Allows an object to alter its behavior when its internal state changes. The object will appear to change its class."
 	}
-
-
 }
