@@ -839,7 +839,61 @@
 			"        return new",
 			""
 		],
-		"description": "Implements the Prototype design pattern in Python. Introduces a prototype class that defines the object to be cloned. Offers methods for creating shallow and deep copies of the object, allowing flexible instantiation of similar objects without specifying their classes."
+		"description": "Implements the Prototype design pattern in Python. \
+						\nIntroduces a prototype class that defines the object to be cloned. \
+						\nOffers methods for creating shallow and deep copies of the object, allowing flexible instantiation of similar objects without specifying their classes. \
+						\n \
+						\nExample: \
+						\nfrom __future__ import annotations \
+						\nfrom typing import Any, Dict, List \
+						\nimport copy \
+						\n \
+						\n# Prototype \
+						\nclass Coffee: \
+						\n    def __init__(self, name: str, strength: int, ingredients: List[str]) -> None: \
+						\n        self.name = name \
+						\n        self.strength = strength \
+						\n        self.ingredients = ingredients \
+						\n \
+						\n    def __copy__(self) -> Coffee: \
+						\n        new = self.__class__(self.name, self.strength, self.ingredients) \
+						\n        new.__dict__.update(self.__dict__) \
+						\n        return new \
+						\n \
+						\n    def __deepcopy__(self, memo: Dict[int, Any]=None) -> Coffee: \
+						\n        if memo is None: \
+						\n            memo = {} \
+						\n \
+						\n        new = self.__class__(self.name, self.strength, self.ingredients) \
+						\n        new.__dict__ = copy.deepcopy(self.__dict__, memo) \
+						\n        return new \
+						\n \
+						\n# Client \
+						\ndef main() -> None: \
+						\n    latte = Coffee(\"Latte\", 5, [\"Espresso\", \"Steamed Milk\"]) \
+						\n    # Shallow copy \
+						\n    cappuccino = copy.copy(latte) \
+						\n    # Deep copy \
+						\n    mocha = copy.deepcopy(latte) \
+						\n \
+						\n    cappuccino.name = \"Cappuccino\" \
+						\n    cappuccino.ingredients.remove(\"Steamed Milk\") \
+						\n    cappuccino.ingredients.append(\"Foamed Milk\") \
+						\n \
+						\n    mocha.name = \"Mocha\" \
+						\n    mocha.ingredients.append(\"Chocolate Syrup\") \
+						\n \
+						\n    print(latte.name) # Latte \
+						\n    print(latte.ingredients) # [\"Espresso\", \"Foamed Milk\"] \
+						\n \
+						\n    print(cappuccino.name) # Cappuccino \
+						\n    print(cappuccino.ingredients) # [\"Espresso\", \"Foamed Milk\"] \
+						\n \
+						\n    print(mocha.name) # Mocha \
+						\n    print(mocha.ingredients) # [\"Espresso\", \"Steamed Milk\", \"Chocolate Syrup\"] \
+						\n \
+						\nif __name__ == \"__main__\": \
+						\n    main()"
 	},
 	"Adapter with Inheritance": {
 		"scope": "python",
