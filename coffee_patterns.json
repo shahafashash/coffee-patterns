@@ -374,6 +374,9 @@
 			"    def build_${2:part1}(self) -> ${4:Builder}:",
 			"        \"\"\"",
 			"        Abstract build_${2:part1} method. Needs to be implemented by concrete '${4:Builder}' objects.",
+			"",
+			"		Returns:",
+			"            ${4:Builder}: The builder object.",
 			"        \"\"\"",
 			"        pass",
 			"",
@@ -381,6 +384,9 @@
 			"    def build_${3:part2}(self) -> ${4:Builder}:",
 			"        \"\"\"",
 			"        Abstract build_${3:part2} method. Needs to be implemented by concrete '${4:Builder}' objects.",
+			"",
+			"		Returns:",
+			"            ${4:Builder}: The builder object.",
 			"        \"\"\"",
 			"        pass",
 			"",
@@ -397,15 +403,30 @@
 			"",
 			"    @property",
 			"    def product(self) -> ${1:Product}:",
+			"    	\"\"\"",
+			"    	Returns the product that was built.",
+			"    	\"\"\"",
 			"        product = self._product",
 			"        self.reset()",
 			"        return product",
 			"",
 			"    def build_${2:part1}(self) -> ${7:ConcreteBuilder}:",
+			"    	\"\"\"",
+			"    	Ovverides the build_${2:part1} method to add '${2:part1}' to the product.",
+			"",
+			"		Returns:",
+			"            ${7:ConcreteBuilder}: The builder object.",
+			"    	\"\"\"",
 			"        self._product.add_${2:part1}()",
 			"        return self",
 			"",
 			"    def build_${3:part2}(self) -> ${7:ConcreteBuilder}:",
+			"    	\"\"\"",
+			"		Ovverides the build_${3:part2} method to add '${3:part2}' to the product.",
+			"",
+			"		Returns:",
+			"            ${7:ConcreteBuilder}: The builder object.",
+			"    	\"\"\"",
 			"        self._product.add_${3:part2}()",
 			"        return self",
 			""
@@ -504,6 +525,9 @@
 			"    def build_${2:part1}(self) -> ${4:Builder}:",
 			"        \"\"\"",
 			"        Abstract build_${2:part1} method. Needs to be implemented by concrete '${4:Builder}' objects.",
+			"",
+			"		Returns:",
+			"            ${4:Builder}: The builder object.",
 			"        \"\"\"",
 			"        pass",
 			"",
@@ -511,6 +535,9 @@
 			"    def build_${3:part2}(self) -> ${4:Builder}:",
 			"        \"\"\"",
 			"        Abstract build_${3:part2} method. Needs to be implemented by concrete '${4:Builder}' objects.",
+			"",
+			"		Returns:",
+			"            ${4:Builder}: The builder object.",
 			"        \"\"\"",
 			"        pass",
 			"",
@@ -527,15 +554,30 @@
 			"",
 			"    @property",
 			"    def product(self) -> ${1:Product}:",
+			"    	\"\"\"",
+			"    	Returns the product that was built.",
+			"    	\"\"\"",
 			"        product = self._product",
 			"        self.reset()",
 			"        return product",
 			"",
 			"    def build_${2:part1}(self) -> ${7:ConcreteBuilder}:",
+			"    	\"\"\"",
+			"    	Ovverides the build_${2:part1} method to add '${2:part1}' to the product.",
+			"",
+			"		Returns:",
+			"            ${7:ConcreteBuilder}: The builder object.",
+			"    	\"\"\"",
 			"        self._product.add_${2:part1}()",
 			"        return self",
 			"",
 			"    def build_${3:part2}(self) -> ${7:ConcreteBuilder}:",
+			"    	\"\"\"",
+			"		Ovverides the build_${3:part2} method to add '${3:part2}' to the product.",
+			"",
+			"		Returns:",
+			"            ${7:ConcreteBuilder}: The builder object.",
+			"    	\"\"\"",
 			"        self._product.add_${3:part2}()",
 			"        return self",
 			"",
@@ -548,6 +590,9 @@
 			"",
 			"    @property",
 			"    def builder(self) -> ${7:ConcreteBuilder}:",
+			"    	\"\"\"",
+			"    	Returns the builder that was set.",
+			"    	\"\"\"",
 			"        return self._builder",
 			"",
 			"    @builder.setter",
@@ -560,6 +605,9 @@
 			"            .build_${3:part2}()",
 			"",
 			"    def get_product(self) -> ${1:Product}:",
+			"    	\"\"\"",
+			"    	Returns the product that was built.",
+			"    	\"\"\"",
 			"        return self.builder.product",
 			""
 		],
@@ -916,7 +964,27 @@
 			"        # Implement the target interface by delegating to ${2:Adaptee}'s method",
 			"        self.${4:adaptee_method}()"
 		],
-		"description": "Implements the Adapter design pattern using inheritance. Adapts an Adaptee class to the target interface by inheriting from the Adaptee class and implementing the target interface."
+		"description": "Implements the Adapter design pattern using inheritance. \
+						\nAdapts an Adaptee class to the target interface by inheriting from the Adaptee class and implementing the target interface. \
+						\n \
+						\nExample: \
+						\n# Adaptee \
+						\nclass DecafCoffee: \
+						\n    def throw_away(self) -> None: \
+						\n        print(\"Pouring decaf coffee down the drain...\") \
+						\n \
+						\n# Adapter \
+						\nclass RealCoffeeAdapter(DecafCoffee): \
+						\n    def drink(self) -> None: \
+						\n        self.throw_away() \
+						\n \
+						\n# Client \
+						\ndef main() -> None: \
+						\n    coffee = RealCoffeeAdapter() \
+						\n    coffee.drink() # Pouring decaf coffee down the drain... \
+						\n \
+						\nif __name__ == \"__main__\": \
+						\n    main()"
 	},
 	"Adapter with Object Composition": {
 		"scope": "python",
@@ -942,7 +1010,31 @@
 			"        # Implement the target interface by delegating to ${2:Adaptee}'s method",
 			"        self.adaptee.${4:adaptee_method}()"
 		],
-		"description": "Implements the Adapter design pattern using object composition. Adapts an Adaptee class to the target interface by composing an instance of Adaptee within the Adapter class and implementing the target interface."
+		"description": "Implements the Adapter design pattern using object composition. \
+						\nAdapts an Adaptee class to the target interface by composing an instance of Adaptee within the Adapter class and implementing the target interface. \
+						\n \
+						\nExample: \
+						\n# Adaptee \
+						\nclass DecafCoffee: \
+						\n    def throw_away(self) -> None: \
+						\n        print(\"Pouring decaf coffee down the drain...\") \
+						\n \
+						\n# Adapter \
+						\nclass RealCoffeeAdapter: \
+						\n    def __init__(self, adaptee: DecafCoffee): \
+						\n        self.adaptee: DecafCoffee = adaptee \
+						\n \
+						\n    def drink(self) -> None: \
+						\n        self.adaptee.throw_away() \
+						\n \
+						\n# Client \
+						\ndef main() -> None: \
+						\n    decaf_coffee = DecafCoffee() \
+						\n    coffee = RealCoffeeAdapter(decaf_coffee) \
+						\n    coffee.drink() # Pouring decaf coffee down the drain... \
+						\n \
+						\nif __name__ == \"__main__\": \
+						\n    main()"
 	},
 	"Bridge": {
 		"scope": "python",
