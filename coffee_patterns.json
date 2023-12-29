@@ -684,7 +684,7 @@
 						\n \
 						\nExample: \
 						\nclass SingletonMeta(type): \
-						\n    _instances = {} \
+						\n    _instances: Dict[${1:SingletonMeta}, Any] = {} \
 						\n \
 						\n    def __call__(cls, *args, **kwargs): \
 						\n        if cls not in cls._instances: \
@@ -766,8 +766,8 @@
 						\nfrom threading import Lock, Thread \
 						\n \
 						\nclass SingletonMeta(type): \
-						\n    _instances = {} \
-						\n    _lock = Lock() \
+						\n    _instances: Dict[${1:SingletonMeta}, Any] = {} \
+						\n    _lock: Lock = Lock() \
 						\n \
 						\n    def __call__(cls, *args, **kwargs): \
 						\n        with cls._lock: \
