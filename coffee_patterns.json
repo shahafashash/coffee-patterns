@@ -38,6 +38,12 @@
 			"    \"\"\"",
 			"    @abstractmethod",
 			"    def ${6:factory_method}(self) -> ${1:Product}:",
+			"        \"\"\"",
+			"        Abstract ${6:factory_method} method. Needs to be implemented by concrete '${5:Creator}' objects.",
+			"        ",
+			"        Returns:",
+			"            ${1:Product}: An object of type '${1:Product}'.",
+			"        \"\"\"",
 			"        pass",
 			"",
 			"class ${7:ConcreteCreatorA}(${5:Creator}):",
@@ -46,6 +52,12 @@
 			"    It overrides the factory method to create a '${3:ConcreteProductA}' instance.",
 			"    \"\"\"",
 			"    def ${6:factory_method}(self) -> ${3:ConcreteProductA}:",
+			"        \"\"\"",
+			"        Overrides the factory method to create a '${3:ConcreteProductA}' instance.",
+			"        ",
+			"        Returns:",
+			"            ${3:ConcreteProductA}: An object of type '${3:ConcreteProductA}'.",
+			"        \"\"\"",
 			"        return ${3:ConcreteProductA}()",
 			"",
 			"class ${8:ConcreteCreatorB}(${5:Creator}):",
@@ -54,11 +66,69 @@
 			"    It overrides the factory method to create a '${4:ConcreteProductB}' instance.",
 			"    \"\"\"",
 			"    def ${6:factory_method}(self) -> ${4:ConcreteProductB}:",
+			"        \"\"\"",
+			"        Overrides the factory method to create a '${4:ConcreteProductB}' instance.",
+			"        ",
+			"        Returns:",
+			"            ${4:ConcreteProductB}: An object of type '${4:ConcreteProductB}'.",
+			"        \"\"\"",
 			"        return ${4:ConcreteProductB}()",
 			""
 		],
-		"description": "Implements the Factory design pattern in Python.\n\nDefines:\n- An abstract class for products\n- Concrete product classes that implement the interface\n- An abstract creator class with a factory method\n- Concrete creator classes that override the factory method to create specific product instances.\n\nExample:\n```python\nfrom abc import ABC, abstractmethod\n\n# Product\nclass Coffee(ABC):\n    @abstractmethod\n    def brew(self) -> None:\n        pass\n\n# ConcreteProduct\nclass Espresso(Coffee):\n    def brew(self) -> None:\n        print(\"Brewing Espresso\")\n\n# ConcreteProduct\nclass Latte(Coffee):\n    def brew(self) -> None:\n        print(\"Brewing Latte\")\n\n# Creator\nclass CoffeeMachine(ABC):\n    @abstractmethod\n    def create_coffee(self) -> Coffee:\n        pass\n\n# ConcreteCreator\nclass EspressoMachine(CoffeeMachine):\n    def create_coffee(self) -> Espresso:\n        return Espresso()\n\n# ConcreteCreator\nclass LatteMachine(CoffeeMachine):\n    def create_coffee(self) -> Latte:\n        return Latte()\n\n# Client\ndef main() -> None:\n    espresso_machine = EspressoMachine()\n    latte_machine = LatteMachine()\n\n    espresso_machine.create_coffee().brew()\n    latte_machine.create_coffee().brew()\n\nif __name__ == \"__main__\":\n    main()```"
+		"description": "Implements the Factory design pattern in Python. \
+						\nDefines: \
+						\n- An abstract class for products. \
+						\n- Concrete product classes that implement the interface. \
+						\n- An abstract creator class with a factory method. \
+						\n- Concrete creator classes that override the factory method to create specific product instances. \
+						\n \
+						\nExample: \
+						\nfrom abc import ABC, abstractmethod \
+						\n \
+						\n# Product \
+						\nclass Coffee(ABC): \
+						\n    @abstractmethod \
+						\n    def brew(self) -> None: \
+						\n        pass \
+						\n \
+						\n# ConcreteProduct \
+						\nclass Espresso(Coffee): \
+						\n    def brew(self) -> None: \
+						\n        print(\"Brewing Espresso\") \
+						\n \
+						\n# ConcreteProduct \
+						\nclass Latte(Coffee): \
+						\n    def brew(self) -> None: \
+						\n        print(\"Brewing Latte\") \
+						\n \
+						\n# Creator \
+						\nclass CoffeeMachine(ABC): \
+						\n    @abstractmethod \
+						\n    def create_coffee(self) -> Coffee: \
+						\n        pass \
+						\n \
+						\n# ConcreteCreator \
+						\nclass EspressoMachine(CoffeeMachine): \
+						\n    def create_coffee(self) -> Espresso: \
+						\n        return Espresso() \
+						\n \
+						\n# ConcreteCreator \
+						\nclass LatteMachine(CoffeeMachine): \
+						\n    def create_coffee(self) -> Latte: \
+						\n        return Latte() \
+						\n \
+						\n# Client \
+						\ndef main() -> None: \
+						\n    espresso_machine = EspressoMachine() \
+						\n    latte_machine = LatteMachine() \
+						\n \
+						\n    espresso_machine.create_coffee().brew() \
+						\n    latte_machine.create_coffee().brew() \
+						\n \
+						\nif __name__ == \"__main__\": \
+						\n    main()"
 	},
+
 	"Abstract Factory": {
 		"scope": "python",
 		"prefix": "abstract_factory",
@@ -124,10 +194,22 @@
 			"    \"\"\"",
 			"    @abstractmethod",
 			"    def ${10:factory_method_a}(self) -> ${1:AbstractProductA}:",
+			"        \"\"\"",
+			"        Abstract factory method for creating '${1:AbstractProductA}' objects.",
+			"        ",
+			"        Returns:",
+			"            ${1:AbstractProductA}: An object of type '${1:AbstractProductA}'.",
+			"        \"\"\"",
 			"        pass",
 			"",
 			"    @abstractmethod",
 			"    def ${11:factory_method_b}(self) -> ${5:AbstractProductB}:",
+			"        \"\"\"",
+			"        Abstract factory method for creating '${5:AbstractProductB}' objects.",
+			"        ",
+			"        Returns:",
+			"            ${5:AbstractProductB}: An object of type '${5:AbstractProductB}'.",
+			"        \"\"\"",
 			"        pass",
 			"",
 			"class ${12:ConcreteFactory1}(${9:AbstractFactory}):",
@@ -136,9 +218,21 @@
 			"    It overrides the factory methods to create '${3:ConcreteProductA1}' and '${7:ConcreteProductB1}' instances.",
 			"    \"\"\"",
 			"    def ${10:factory_method_a}(self) -> ${3:ConcreteProductA1}:",
+			"        \"\"\"",
+			"        Overrides the factory method to create a '${3:ConcreteProductA1}' instance.",
+			"        ",
+			"        Returns:",
+			"            ${3:ConcreteProductA1}: An object of type '${3:ConcreteProductA1}'.",
+			"        \"\"\"",
 			"        return ${3:ConcreteProductA1}()",
 			"",
 			"    def ${11:factory_method_b}(self) -> ${7:ConcreteProductB1}:",
+			"        \"\"\"",
+			"        Overrides the factory method to create a '${7:ConcreteProductB1}' instance.",
+			"        ",
+			"        Returns:",
+			"            ${7:ConcreteProductB1}: An object of type '${7:ConcreteProductB1}'.",
+			"        \"\"\"",
 			"        return ${7:ConcreteProductB1}()",
 			"",
 			"class ${13:ConcreteFactory2}(${9:AbstractFactory}):",
@@ -147,13 +241,105 @@
 			"    It overrides the factory methods to create '${4:ConcreteProductA2}' and '${8:ConcreteProductB2}' instances.",
 			"    \"\"\"",
 			"    def ${10:factory_method_a}(self) -> ${4:ConcreteProductA2}:",
+			"        \"\"\"",
+			"        Overrides the factory method to create a '${4:ConcreteProductA2}' instance.",
+			"        ",
+			"        Returns:",
+			"            ${4:ConcreteProductA2}: An object of type '${4:ConcreteProductA2}'.",
+			"        \"\"\"",
 			"        return ${4:ConcreteProductA2}()",
 			"",
 			"    def ${11:factory_method_b}(self) -> ${8:ConcreteProductB2}:",
+			"        \"\"\"",
+			"        Overrides the factory method to create a '${8:ConcreteProductB2}' instance.",
+			"        ",
+			"        Returns:",
+			"            ${8:ConcreteProductB2}: An object of type '${8:ConcreteProductB2}'.",
+			"        \"\"\"",
 			"        return ${8:ConcreteProductB2}()",
 			""
 		],
-		"description": "Creates an Abstract Factory design pattern structure in Python.\nDefines:\n- Abstract product classes\n- Concrete product classes\n- An abstract factory class with factory methods for each product\n- Concrete factory classes that override the factory methods to produce specific product instances.\n\nExample:\nfrom abc import ABC, abstractmethod\n\n# AbstractProductA\nclass CoffeeBean(ABC):\n    @abstractmethod\n    def grind(self) -> None:\n        pass\n\n# ConcreteProductA\nclass ArabicaBean(CoffeeBean):\n    def grind(self) -> None:\n        print(\"Grinding Arabica Beans\")\n\n# ConcreteProductA\nclass RobustaBean(CoffeeBean):\n    def grind(self) -> None:\n        print(\"Grinding Robusta Beans\")\n\n# AbstractProductB\nclass Milk(ABC):\n    @abstractmethod\n    def froth(self) -> None:\n        pass\n\n# ConcreteProductB\nclass WholeMilk(Milk):\n    def froth(self) -> None:\n        print(\"Frothing Whole Milk\")\n\n# ConcreteProductB\nclass AlmondMilk(Milk):\n    def froth(self) -> None:\n        print(\"Frothing Almond Milk\")\n\n# AbstractFactory\nclass CoffeeFactory(ABC):\n    @abstractmethod\n    def create_coffee_bean(self) -> CoffeeBean:\n        pass\n\n    @abstractmethod\n    def create_milk(self) -> Milk:\n        pass\n\n# ConcreteFactory1\nclass ArabicaLatteFactory(CoffeeFactory):\n    def create_coffee_bean(self) -> CoffeeBean:\n        return ArabicaBean()\n\n    def create_milk(self) -> Milk:\n        return WholeMilk()\n\n# ConcreteFactory2\nclass RobustaAlmondLatteFactory(CoffeeFactory):\n    def create_coffee_bean(self) -> CoffeeBean:\n        return RobustaBean()\n\n    def create_milk(self) -> Milk:\n        return AlmondMilk()\n\n# Client\ndef main() -> None:\n    arabica_latte_factory = ArabicaLatteFactory()\n    robusta_almond_latte_factory = RobustaAlmondLatteFactory()\n\n    arabica_latte_factory.create_coffee_bean().grind()\n    arabica_latte_factory.create_milk().froth()\n\n    robusta_almond_latte_factory.create_coffee_bean().grind()\n    robusta_almond_latte_factory.create_milk().froth()\n\nif __name__ == \"__main__\":\n    main()"
+		"description": "Creates an Abstract Factory design pattern structure in Python. \
+						\nDefines: \
+						\n- Abstract product classes. \
+						\n- Concrete product classes. \
+						\n- An abstract factory class with factory methods for each product. \
+						\n- Concrete factory classes that override the factory methods to produce specific product instances. \
+						\n \
+						\nExample: \
+						\nfrom abc import ABC, abstractmethod \
+						\n \
+						\n# AbstractProductA \
+						\nclass CoffeeBean(ABC): \
+						\n    @abstractmethod \
+						\n    def grind(self) -> None: \
+						\n        pass \
+						\n \
+						\n# ConcreteProductA1 \
+						\nclass ArabicaBean(CoffeeBean): \
+						\n    def grind(self) -> None: \
+						\n        print(\"Grinding Arabica Beans\") \
+						\n \
+						\n# ConcreteProductA2 \
+						\nclass RobustaBean(CoffeeBean): \
+						\n    def grind(self) -> None: \
+						\n        print(\"Grinding Robusta Beans\") \
+						\n \
+						\n# AbstractProductB \
+						\nclass Milk(ABC): \
+						\n    @abstractmethod \
+						\n    def froth(self) -> None: \
+						\n        pass \
+						\n \
+						\n# ConcreteProductB1 \
+						\nclass WholeMilk(Milk): \
+						\n    def froth(self) -> None: \
+						\n        print(\"Frothing Whole Milk\") \
+						\n \
+						\n# ConcreteProductB2 \
+						\nclass AlmondMilk(Milk): \
+						\n    def froth(self) -> None: \
+						\n        print(\"Frothing Almond Milk\") \
+						\n \
+						\n# AbstractFactory \
+						\nclass CoffeeFactory(ABC): \
+						\n    @abstractmethod \
+						\n    def create_coffee_bean(self) -> CoffeeBean: \
+						\n        pass \
+						\n \
+						\n    @abstractmethod \
+						\n    def create_milk(self) -> Milk: \
+						\n        pass \
+						\n \
+						\n# ConcreteFactory1 \
+						\nclass ArabicaLatteFactory(CoffeeFactory): \
+						\n    def create_coffee_bean(self) -> CoffeeBean: \
+						\n        return ArabicaBean() \
+						\n \
+						\n    def create_milk(self) -> Milk: \
+						\n        return WholeMilk() \
+						\n \
+						\n# ConcreteFactory2 \
+						\nclass RobustaAlmondLatteFactory(CoffeeFactory): \
+						\n    def create_coffee_bean(self) -> CoffeeBean: \
+						\n        return RobustaBean() \
+						\n \
+						\n    def create_milk(self) -> Milk: \
+						\n        return AlmondMilk() \
+						\n \
+						\n# Client \
+						\ndef main() -> None: \
+						\n    arabica_latte_factory = ArabicaLatteFactory() \
+						\n    robusta_almond_latte_factory = RobustaAlmondLatteFactory() \
+						\n \
+						\n    arabica_latte_factory.create_coffee_bean().grind() \
+						\n    arabica_latte_factory.create_milk().froth() \
+						\n \
+						\n    robusta_almond_latte_factory.create_coffee_bean().grind() \
+						\n    robusta_almond_latte_factory.create_milk().froth() \
+						\n \
+						\nif __name__ == \"__main__\": \
+						\n    main()"
 	},
 
 	"Builder": {
@@ -224,7 +410,66 @@
 			"        return self",
 			""
 		],
-		"description": "Constructs a Builder design pattern structure in Python.\nDefines:\n- A product class with complex construction\n- An abstract builder class with methods for building parts of the product\n- A concrete builder class that implements the builder interface.\nThis pattern enables the step-by-step construction of a complex object.\n\nExample:\nfrom abc import ABC, abstractmethod\n\n# Product\nclass Coffee:\n    def __init__(self) -> None:\n        self.parts = []\n\n    def add_beans(self) -> None:\n        self.parts.append(\"Coffee Beans\")\n\n    def add_water(self) -> None:\n        self.parts.append(\"Water\")\n\n# Builder\nclass CoffeeBuilder(ABC):\n    @abstractmethod\n    def build_beans(self) -> None:\n        pass\n\n    @abstractmethod\n    def build_water(self) -> None:\n        pass\n\n    @abstractmethod\n    def get_coffee(self) -> Coffee:\n        pass\n\n# ConcreteBuilder\nclass LatteBuilder(CoffeeBuilder):\n    def __init__(self) -> None:\n        self._coffee = Coffee()\n\n    def build_beans(self) -> None:\n        self._coffee.add_beans()\n\n    def build_water(self) -> None:\n        self._coffee.add_water()\n\n    def get_coffee(self) -> Coffee:\n        return self._coffee\n\n# Client\ndef main() -> None:\n    latte_builder = LatteBuilder()\n    latte_builder.build_beans()\n    latte_builder.build_water()\n    latte = latte_builder.get_coffee()\n\nif __name__ == \"__main__\":\n    main()"
+		"description": "Constructs a Builder design pattern structure in Python. \
+						\nDefines: \
+						\n- A product class with complex construction. \
+						\n- An abstract builder class with methods for building parts of the product. \
+						\n- A concrete builder class that implements the builder interface. \
+						\nThis pattern enables the step-by-step construction of a complex object. \
+						\n \
+						\nExample: \
+						\nfrom abc import ABC, abstractmethod \
+						\n \
+						\n# Product \
+						\nclass Coffee: \
+						\n    def __init__(self) -> None: \
+						\n        self.parts = [] \
+						\n \
+						\n    def add_beans(self) -> None: \
+						\n        self.parts.append(\"Coffee Beans\") \
+						\n \
+						\n    def add_water(self) -> None: \
+						\n        self.parts.append(\"Water\") \
+						\n \
+						\n# Builder \
+						\nclass CoffeeBuilder(ABC): \
+						\n    @abstractmethod \
+						\n    def build_beans(self) -> None: \
+						\n        pass \
+						\n \
+						\n    @abstractmethod \
+						\n    def build_water(self) -> None: \
+						\n        pass \
+						\n \
+						\n# ConcreteBuilder \
+						\nclass CoffeeMachine(CoffeeBuilder): \
+						\n    def __init__(self) -> None: \
+						\n        self.reset() \
+						\n \
+						\n    def reset(self) -> None: \
+						\n        self._coffee = Coffee() \
+						\n \
+						\n    @property \
+						\n    def coffee(self) -> Coffee: \
+						\n        coffee = self._coffee \
+						\n        self.reset() \
+						\n        return coffee \
+						\n \
+						\n    def build_beans(self) -> None: \
+						\n        self._coffee.add_beans() \
+						\n \
+						\n    def build_water(self) -> None: \
+						\n        self._coffee.add_water() \
+						\n \
+						\n# Client \
+						\ndef main() -> None: \
+						\n    coffee_machine = CoffeeMachine() \
+						\n    coffee_machine.build_beans() \
+						\n    coffee_machine.build_water() \
+						\n    coffee = coffee_machine.coffee \
+						\n \
+						\nif __name__ == \"__main__\": \
+						\n    main()"
 	},
 
 	"Builder With Director": {
@@ -318,7 +563,86 @@
 			"        return self.builder.product",
 			""
 		],
-		"description": "Creates a Builder design pattern structure with a Director in Python. Combines the Builder and Director patterns to facilitate the construction of a complex object. The Director class orchestrates the building process using a builder, ensuring a consistent construction sequence.\n\nExample:\nfrom abc import ABC, abstractmethod\n\n# Product\nclass Coffee:\n    def __init__(self) -> None:\n        self.parts = []\n\n    def add_beans(self) -> None:\n        self.parts.append(\"Coffee Beans\")\n\n    def add_water(self) -> None:\n        self.parts.append(\"Water\")\n\n# Builder\nclass CoffeeBuilder(ABC):\n    @abstractmethod\n    def build_beans(self) -> None:\n        pass\n\n    @abstractmethod\n    def build_water(self) -> None:\n        pass\n\n    @abstractmethod\n    def get_coffee(self) -> Coffee:\n        pass\n\n# ConcreteBuilder\nclass LatteBuilder(CoffeeBuilder):\n    def __init__(self) -> None:\n        self._coffee = Coffee()\n\n    def build_beans(self) -> None:\n        self._coffee.add_beans()\n\n    def build_water(self) -> None:\n        self._coffee.add_water()\n\n    def get_coffee(self) -> Coffee:\n        return self._coffee\n\n# Director\nclass Barista:\n    def __init__(self) -> None:\n        self._builder = None\n\n    @property\n    def builder(self) -> CoffeeBuilder:\n        return self._builder\n\n    @builder.setter\n    def builder(self, builder: CoffeeBuilder) -> None:\n        self._builder = builder\n\n    def make_coffee(self) -> None:\n        self.builder /\n            .build_beans() /\n            .build_water()\n\n    def get_coffee(self) -> Coffee:\n        return self.builder.get_coffee()\n\n# Client\ndef main() -> None:\n    barista = Barista()\n    barista.builder = LatteBuilder()\n    barista.make_coffee()\n    latte = barista.get_coffee()\n\nif __name__ == \"__main__\":\n    main()"
+		"description": "Creates a Builder design pattern structure with a Director in Python. \
+						\nCombines the Builder and Director patterns to facilitate the construction of a complex object. \
+						\nThe Director class orchestrates the building process using a builder, ensuring a consistent construction sequence. \
+						\n \
+						\nExample: \
+						\nfrom abc import ABC, abstractmethod \
+						\n \
+						\n# Product \
+						\nclass Coffee: \
+						\n    def __init__(self) -> None: \
+						\n        self.parts = [] \
+						\n \
+						\n    def add_beans(self) -> None: \
+						\n        self.parts.append(\"Coffee Beans\") \
+						\n \
+						\n    def add_water(self) -> None: \
+						\n        self.parts.append(\"Water\") \
+						\n \
+						\n# Builder \
+						\nclass CoffeeBuilder(ABC): \
+						\n    @abstractmethod \
+						\n    def build_beans(self) -> None: \
+						\n        pass \
+						\n \
+						\n    @abstractmethod \
+						\n    def build_water(self) -> None: \
+						\n        pass \
+						\n \
+						\n# ConcreteBuilder \
+						\nclass CoffeeMachine(CoffeeBuilder): \
+						\n    def __init__(self) -> None: \
+						\n        self.reset() \
+						\n \
+						\n    def reset(self) -> None: \
+						\n        self._coffee = Coffee() \
+						\n \
+						\n    @property \
+						\n    def coffee(self) -> Coffee: \
+						\n        coffee = self._coffee \
+						\n        self.reset() \
+						\n        return coffee \
+						\n \
+						\n    def build_beans(self) -> None: \
+						\n        self._coffee.add_beans() \
+						\n \
+						\n    def build_water(self) -> None: \
+						\n        self._coffee.add_water() \
+						\n \
+						\n# Director \
+						\nclass Barista: \
+						\n    def __init__(self) -> None: \
+						\n        self._builder = None \
+						\n \
+						\n    @property \
+						\n    def builder(self) -> CoffeeBuilder: \
+						\n        return self._builder \
+						\n \
+						\n    @builder.setter \
+						\n    def builder(self, builder: CoffeeBuilder) -> None: \
+						\n        self._builder = builder \
+						\n \
+						\n    def build_coffee(self) -> None: \
+						\n        self.builder \\ \
+						\n            .build_beans() \\ \
+						\n            .build_water() \
+						\n \
+						\n    def get_coffee(self) -> Coffee: \
+						\n        return self.builder.coffee \
+						\n \
+						\n# Client \
+						\ndef main() -> None: \
+						\n    barista = Barista() \
+						\n    coffee_machine = CoffeeMachine() \
+						\n \
+						\n    barista.builder = coffee_machine \
+						\n    barista.build_coffee() \
+						\n    coffee = barista.get_coffee() \
+						\n \
+						\nif __name__ == \"__main__\": \
+						\n    main()"
 	},
 	"Singleton": {
 		"scope": "python",
@@ -353,20 +677,57 @@
 			"        pass",
 			""
 		],
-		"description": "Implements the Singleton design pattern in Python.\nEnsures a class has only one instance and provides a global point of access to it.\nThis pattern involves a single class that is responsible for creating its own unique instance and ensuring that only a single instance exists.\n\nExample:\nclass SingletonMeta(type):\n    _instances = {}\n\n    def __call__(cls, *args, **kwargs):\n        if cls not in cls._instances:\n            cls._instances[cls] = super().__call__(*args, **kwargs)\n        return cls._instances[cls]\n\n# Singleton\nclass InfiniteCoffeeCup(metaclass=SingletonMeta):\n    def __init__(self) -> None:\n        self.coffee = float('inf')  # Infinite coffee\n\n    def drink(self, amount: float) -> None:\n        self.coffee -= amount\n\n    def coffee_left(self) -> float:\n        return self.coffee\n\n# Client\ndef main() -> None:\n    cup1 = InfiniteCoffeeCup()\n    cup2 = InfiniteCoffeeCup()\n\n    cup1.drink(0.5)\n    cup2.drink(0.25)\n\n    print(cup1.coffee_left())\n    print(cup2.coffee_left())\n\nif __name__ == \"__main__\":\n    main()"
+		"description": "Implements the Singleton design pattern in Python. \
+						\nEnsures a class has only one instance and provides a global point of access to it. \
+						\nThis pattern involves a single class that is responsible for creating its own unique instance and ensuring that only a single instance exists. \
+						\n \
+						\nExample: \
+						\nclass SingletonMeta(type): \
+						\n    _instances = {} \
+						\n \
+						\n    def __call__(cls, *args, **kwargs): \
+						\n        if cls not in cls._instances: \
+						\n            cls._instances[cls] = super().__call__(*args, **kwargs) \
+						\n        return cls._instances[cls] \
+						\n \
+						\n# Singleton \
+						\nclass CoffeeCup(metaclass=SingletonMeta): \
+						\n    def __init__(self) -> None: \
+						\n        self.coffee: float = 1.0 \
+						\n \
+						\n    def drink(self, amount: float) -> None: \
+						\n        self.coffee -= amount \
+						\n \
+						\n    def coffee_left(self) -> float: \
+						\n        return self.coffee \
+						\n \
+						\n# Client \
+						\ndef main() -> None: \
+						\n    cup1 = CoffeeCup() \
+						\n    cup2 = CoffeeCup() \
+						\n \
+						\n    cup1.drink(0.5) \
+						\n    cup2.drink(0.25) \
+						\n \
+						\n    print(cup1.coffee_left()) # 0.25 \
+						\n    print(cup2.coffee_left()) # 0.25 \
+						\n \
+						\nif __name__ == \"__main__\": \
+						\n    main()"
 	},
 	"Singleton Thread-Safe ": {
 		"scope": "python",
 		"prefix": "singleton_thread_safe",
 		"body": [
-			"from typing import Any, Dict, Type",
+			"from __future__ import annotations"
+			"from typing import Any, Dict",
 			"from threading import Lock",
 			"",
 			"class ${1:SingletonMeta}(type):",
 			"    \"\"\"",
 			"    Metaclass implementing the Singleton design pattern.",
 			"    \"\"\"",
-			"    _instances: Dict[Type['${1:SingletonMeta}'], Any] = {}",
+			"    _instances: Dict[SingletonMeta, Any] = {}",
 			"    _lock: Lock = Lock()",
 			"",
 			"    def __call__(cls, *args, **kwargs):",
@@ -383,15 +744,59 @@
 			"    \"\"\"",
 			"    Singleton class implementing the Singleton design pattern.",
 			"    \"\"\"",
+			"    _internal_lock: Lock = Lock()",
 			"    def ${3:operation}(self) -> None:",
 			"        \"\"\"",
 			"        Placeholder for the operation that the Singleton performs.",
 			"        Replace this with the actual functionality of your Singleton.",
 			"        \"\"\"",
-			"        pass",
+			"        with self._internal_lock:",
+			"            # Perform thread-safe operations here",
+			"            pass",
 			""
 		],
-		"description": "Implements the Thread-Safe Singleton design pattern in Python.\nEnsures that a class has only one instance and provides a global point of access to it, while being thread-safe.\nThis pattern involves using a lock or other mechanism to synchronize access to the singleton instance, preventing multiple threads from creating multiple instances simultaneously.\n\nExample:\nfrom typing import Any, Dict, Type\nfrom threading import Lock, Thread\n\nclass SingletonMeta(type):\n    _instances = {}\n    _lock = Lock()\n\n    def __call__(cls, *args, **kwargs):\n        with cls._lock:\n            if cls not in cls._instances:\n                cls._instances[cls] = super().__call__(*args, **kwargs)\n        return cls._instances[cls]\n\n# Singleton\nclass CoffeeShop(metaclass=SingletonMeta):\n    def __init__(self, name: str, owner: str) -> None:\n        self.name = name\n        self.owner = owner\n\n# Client\ndef main() -> None:\n    def create_coffee_shop(name: str, owner: str) -> None:\n        coffee_shop = CoffeeShop(name, owner)\n        print(f\"Created coffee shop {coffee_shop.name} owned by {coffee_shop.owner}\")\n\n    starbucks = Thread(target=create_coffee_shop, args=(\"Starbucks\", \"Howard Schultz\"))\n    dunkin = Thread(target=create_coffee_shop, args=(\"Dunkin\", \"William Rosenberg\"))\n\n    starbucks.start()\n    dunkin.start()\n    starbucks.join()\n    dunkin.join()\n\nif __name__ == \"__main__\":\n    main()"
+		"description": "Implements the Thread-Safe Singleton design pattern in Python. \
+						\nEnsures that a class has only one instance and provides a global point of access to it, while being thread-safe. \
+						\nThis pattern involves using a lock or other mechanism to synchronize access to the singleton instance, preventing multiple threads from creating multiple instances simultaneously. \
+						\n \
+						\nExample: \
+						\nfrom __future__ import annotations \
+						\nfrom typing import Any, Dict \
+						\nfrom threading import Lock, Thread \
+						\n \
+						\nclass SingletonMeta(type): \
+						\n    _instances = {} \
+						\n    _lock = Lock() \
+						\n \
+						\n    def __call__(cls, *args, **kwargs): \
+						\n        with cls._lock: \
+						\n            if cls not in cls._instances: \
+						\n                cls._instances[cls] = super().__call__(*args, **kwargs) \
+						\n        return cls._instances[cls] \
+						\n \
+						\n# Singleton \
+						\nclass CoffeeShop(metaclass=SingletonMeta): \
+						\n    _internal_lock: Lock = Lock() \
+						\n    def __init__(self, name: str, owner: str) -> None: \
+						\n        self.name = name \
+						\n        self.owner = owner \
+						\n \
+						\n# Client \
+						\ndef main() -> None: \
+						\n    def create_coffee_shop(name: str, owner: str) -> None: \
+						\n        coffee_shop = CoffeeShop(name, owner) \
+						\n        print(f\"Created coffee shop {coffee_shop.name} owned by {coffee_shop.owner}\") \
+						\n \
+						\n    starbucks = Thread(target=create_coffee_shop, args=(\"Starbucks\", \"Howard Schultz\")) \
+						\n    dunkin = Thread(target=create_coffee_shop, args=(\"Dunkin\", \"William Rosenberg\")) \
+						\n \
+						\n    starbucks.start() \
+						\n    dunkin.start() \
+						\n    starbucks.join() \
+						\n    dunkin.join() \
+						\n \
+						\nif __name__ == \"__main__\": \
+						\n    main()"
 	},
 	"Prototype": {
 		"scope": "python",
