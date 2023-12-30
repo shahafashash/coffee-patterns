@@ -1213,19 +1213,19 @@
 						\n        print(\"Drinking a latte...\") \
 						\n \
 						\n# Decorator \
-						\nclass LatteWithCinamon(Coffee): \
+						\nclass LatteWithCinnamon(Coffee): \
 						\n    def __init__(self, coffee: Coffee) -> None: \
 						\n        self.coffee: Coffee = coffee \
 						\n \
 						\n    def drink(self) -> None: \
-						\n        print(\"Adding cinamon topping...\") \
+						\n        print(\"Adding cinnamon topping...\") \
 						\n        self.coffee.drink() \
 						\n \
 						\n# Client \
 						\ndef main() -> None: \
 						\n    latte = Latte() \
 						\n    latte_with_cinamon = LatteWithCinamon(latte) \
-						\n    latte_with_cinamon.drink() # Adding cinamon topping... \\n Drinking a latte... \
+						\n    latte_with_cinamon.drink() # Adding cinnamon topping... \\n Drinking a latte... \
 						\n \
 						\nif __name__ == \"__main__\": \
 						\n    main()"
@@ -1279,7 +1279,49 @@
 			"        \"\"\"",
 			"        return True"
 		],
-		"description": "Implements the Proxy design pattern in Python. Provides a surrogate or placeholder for another object to control access to it."
+		"description": "Implements the Proxy design pattern in Python. \
+						\nProvides a surrogate or placeholder for another object to control access to it. \
+						\n \
+						\nExample: \
+						\nfrom abc import ABC, abstractmethod \
+						\n \
+						\n# Subject \
+						\nclass CoffeeShop(ABC): \
+						\n    @abstractmethod \
+						\n    def serve_coffee(self) -> None: \
+						\n        pass \
+						\n \
+						\n# Real Subject \
+						\nclass Starbucks(CoffeeShop): \
+						\n    def serve_coffee(self) -> None: \
+						\n        print(\"Serving coffee...\") \
+						\n \
+						\n# Proxy \
+						\nclass StarbucksProxy(CoffeeShop): \
+						\n    def __init__(self, starbucks: Starbucks, is_barista: bool) -> None: \
+						\n        self._real_subject: Starbucks = starbucks \
+						\n        self._is_barista: bool = is_barista \
+						\n \
+						\n    def serve_coffee(self) -> None: \
+						\n        if self.is_authorized(): \
+						\n            self.starbucks.serve_coffee() \
+						\n        else: \
+						\n            print(\"Please get out of the counter area...\") \
+						\n \
+						\n    def is_authorized(self) -> bool: \
+						\n        return self._is_barista \
+						\n \
+						\n# Client \
+						\ndef main() -> None: \
+						\n    starbucks = Starbucks() \
+						\n    barista = StarbucksProxy(starbucks, is_barista=True) \
+						\n    barista.serve_coffee() # Serving coffee... \
+						\n \
+						\n    annoying_customer = StarbucksProxy(starbucks, is_barista=False) \
+						\n    annoying_customer.serve_coffee() # Please get out of the counter area... \
+						\n \
+						\nif __name__ == \"__main__\": \
+						\n    main()"
 	},
 	"Strategy": {
 		"scope": "python",
