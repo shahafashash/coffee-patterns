@@ -1195,7 +1195,40 @@
 			"        # Additional functionality here",
 			"        self.${5:component}.${2:operation}()"
 		],
-		"description": "Implements the Decorator design pattern in Python. Attaches additional responsibilities to an object dynamically."
+		"description": "Implements the Decorator design pattern in Python. \
+						\nAttaches additional responsibilities to an object dynamically. \
+						\n \
+						\nExample: \
+						\nfrom abc import ABC, abstractmethod \
+						\n \
+						\n# Component \
+						\nclass Coffee(ABC): \
+						\n    @abstractmethod \
+						\n    def drink(self) -> None: \
+						\n        pass \
+						\n \
+						\n# Concrete Component \
+						\nclass Latte(Coffee): \
+						\n    def drink(self) -> None: \
+						\n        print(\"Drinking a latte...\") \
+						\n \
+						\n# Decorator \
+						\nclass LatteWithCinamon(Coffee): \
+						\n    def __init__(self, coffee: Coffee) -> None: \
+						\n        self.coffee: Coffee = coffee \
+						\n \
+						\n    def drink(self) -> None: \
+						\n        print(\"Adding cinamon topping...\") \
+						\n        self.coffee.drink() \
+						\n \
+						\n# Client \
+						\ndef main() -> None: \
+						\n    latte = Latte() \
+						\n    latte_with_cinamon = LatteWithCinamon(latte) \
+						\n    latte_with_cinamon.drink() # Adding cinamon topping... \\n Drinking a latte... \
+						\n \
+						\nif __name__ == \"__main__\": \
+						\n    main()"
 	},
 	"Proxy": {
 		"scope": "python",
