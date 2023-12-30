@@ -1369,7 +1369,49 @@
 			"        \"\"\"",
 			"        self._${6:strategy}.${2:operation}()"
 		],
-		"description": "Implements the Strategy design pattern in Python. Defines a family of algorithms, encapsulates each one, and makes them interchangeable. Allows the algorithm to vary independently from clients that use it."
+		"description": "Implements the Strategy design pattern in Python. \
+						\nDefines a family of algorithms, encapsulates each one, and makes them interchangeable. \
+						\nAllows the algorithm to vary independently from clients that use it. \
+						\n \
+						\nExample: \
+						\nfrom abc import ABC, abstractmethod \
+						\n \
+						\n# Strategy \
+						\nclass BrewStrategy(ABC): \
+						\n    @abstractmethod \
+						\n    def brew(self) -> None: \
+						\n        pass \
+						\n \
+						\n# Concrete Strategy A \
+						\nclass DripBrewStrategy(BrewStrategy): \
+						\n    def brew(self) -> None: \
+						\n        print(\"Brewing coffee using the drip method...\") \
+						\n \
+						\n# Concrete Strategy B \
+						\nclass FrenchPressBrewStrategy(BrewStrategy): \
+						\n    def brew(self) -> None: \
+						\n        print(\"Brewing coffee using the French press method...\") \
+						\n \
+						\n# Context \
+						\nclass CoffeeMaker: \
+						\n    def __init__(self, brew_strategy: BrewStrategy) -> None: \
+						\n        self._brew_strategy: BrewStrategy = brew_strategy \
+						\n \
+						\n    def brew(self) -> None: \
+						\n        self._brew_strategy.brew() \
+						\n \
+						\n# Client \
+						\ndef main() -> None: \
+						\n    drip_brew_strategy = DripBrewStrategy() \
+						\n    coffee_maker = CoffeeMaker(drip_brew_strategy) \
+						\n    coffee_maker.brew() # Brewing coffee using the drip method... \
+						\n \
+						\n    french_press_brew_strategy = FrenchPressBrewStrategy() \
+						\n    coffee_maker = CoffeeMaker(french_press_brew_strategy) \
+						\n    coffee_maker.brew() # Brewing coffee using the French press method... \
+						\n \
+						\nif __name__ == \"__main__\": \
+						\n    main()"
 	},
 	"Template Method": {
 		"scope": "python",
