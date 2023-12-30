@@ -1040,6 +1040,7 @@
 		"scope": "python",
 		"prefix": "bridge",
 		"body": [
+			"from __future__ import annotations",
 			"from abc import ABC, abstractmethod",
 			"",
 			"class ${1:Abstraction}(ABC):",
@@ -1100,7 +1101,51 @@
 			"        pass",
 			""
 		],
-		"description": "Implements the Bridge design pattern in Python. Defines an abstract class for the abstraction, concrete classes that extend the abstraction, an abstract class for the implementor, and concrete classes that implement the implementor interface. This pattern decouples the abstraction from its implementation, allowing both to vary independently."
+		"description": "Implements the Bridge design pattern in Python. \
+						\nDefines: \
+						\n- An abstract class for the abstraction. \
+						\n- Concrete classes that extend the abstraction. \
+						\n- An abstract class for the implementor. \
+						\n- Concrete classes that implement the implementor interface. \
+						\nThis pattern decouples the abstraction from its implementation, allowing both to vary independently. \
+						\n \
+						\nExample: \
+						\nfrom __future__ import annotations \
+						\nfrom abc import ABC, abstractmethod \
+						\n \
+						\n# Abstraction \
+						\nclass CoffeeMachine(ABC): \
+						\n    def __init__(self, implementor: CoffeeMachineImplementor) -> None: \
+						\n        self.implementor: CoffeeMachineImplementor = implementor \
+						\n \
+						\n    @abstractmethod \
+						\n    def brew(self) -> None: \
+						\n        pass \
+						\n \
+						\n# Refined Abstraction \
+						\nclass DripCoffeeMachine(CoffeeMachine): \
+						\n    def brew(self) -> None: \
+						\n        self.implementor.brew_filter_coffee() \
+						\n \
+						\n# Implementor \
+						\nclass CoffeeMachineImplementor(ABC): \
+						\n    @abstractmethod \
+						\n    def brew_filter_coffee(self) -> None: \
+						\n        pass \
+						\n \
+						\n# Concrete Implementor \
+						\nclass ElectricCoffeeMachine(CoffeeMachineImplementor): \
+						\n    def brew_filter_coffee(self) -> None: \
+						\n        print(\"Brewing filter coffee with an electric coffee machine...\") \
+						\n \
+						\n# Client \
+						\ndef main() -> None: \
+						\n    electric_coffee_machine = ElectricCoffeeMachine() \
+						\n    drip_coffee_machine = DripCoffeeMachine(electric_coffee_machine) \
+						\n    drip_coffee_machine.brew() # Brewing filter coffee with an electric coffee machine... \
+						\n \
+						\nif __name__ == \"__main__\": \
+						\n    main()"
 	},
 	"Decorator": {
 		"scope": "python",
