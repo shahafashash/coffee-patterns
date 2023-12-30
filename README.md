@@ -32,27 +32,27 @@ Coffee Patterns is a Visual Studio Code extension that provides a collection of 
 
 ## Supported Design Patterns
 ### Creational
-[x] Factory Method
-[x] Abstract Factory
-[x] Builder (with and without Director)
-[x] Singleton (simple and thread-safe)
-[x] Prototype
+- [x] Factory Method
+- [x] Abstract Factory
+- [x] Builder (with and without Director)
+- [x] Singleton (simple and thread-safe)
+- [x] Prototype
 ### Structural
-[x] Adapter (through inheritance and object composition)
-[x] Bridge
-[x] Decorator
-[x] Proxy
-[x] Composite
-[] Facade
-[] Flyweight
+- [x] Adapter (through inheritance and object composition)
+- [x] Bridge
+- [x] Decorator
+- [x] Proxy
+- [x] Composite
+- [] Facade
+- [] Flyweight
 ### Behavioral
-[x] Chain of Responsibility
-[] Command
-[x] Iterator
-[x] Mediator
-[x] Memento
-[x] Observer
-[x] State
-[x] Strategy
-[x] Template Method
-[x] Visitor
+- [x] Chain of Responsibility
+- [] Command
+- [x] Iterator
+- [x] Mediator
+- [x] Memento
+- [x] Observer
+- [x] State
+- [x] Strategy
+- [x] Template Method
+- [x] Visitor
