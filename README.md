@@ -4,7 +4,7 @@
 
 <div align="center">
 
-[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://semver.org)
+[![Version](https://img.shields.io/github/v/release/shahafashash/coffee-patterns.svg?style=social&label=Version)](https://github.com/shahafashash/coffee-patterns/releases)
 [![GitHub stars](https://img.shields.io/github/stars/shahafashash/coffee-patterns.svg?style=social&label=Stars)](https://github.com/shahafashash/coffee-patterns/stargazers)
 [![GitHub forks](https://img.shields.io/github/forks/shahafashash/coffee-patterns.svg?style=social&label=Forks)](https://github.com/shahafashash/coffee-patterns/network/members)
 [![GitHub watchers](https://img.shields.io/github/watchers/shahafashash/coffee-patterns.svg?style=social&label=Watchers)](https://github.com/shahafashash/coffee-patterns/watchers)
