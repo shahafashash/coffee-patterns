@@ -18,10 +18,20 @@ jobs:
                     ref: ${{ github.head_ref }}
                     fetch-depth: 0
 
-            - name: Version
+            - name: Git Version
               id: version
               uses: codacy/git-version@2.7.1
 
             - name: Check version
               run: |
                   echo "Version: ${{ steps.version.outputs.version }}"
+
+            - name: Commit version
+              run: |
+                  git config --global user.name "shahafashash"
+                  git config --global user.email "shahaf.ashash@icloud.com"
+                  git tag ${{ steps.version.outputs.version }}
+                  git push origin ${{ steps.version.outputs.version }} --tags
+
+
+
