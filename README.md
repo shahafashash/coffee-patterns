@@ -4,34 +4,29 @@
 
 <div align="center">
 
-[![Version](https://img.shields.io/github/v/release/shahafashash/coffee-patterns.svg?style=social&label=Version)](https://github.com/shahafashash/coffee-patterns/releases)
-[![GitHub stars](https://img.shields.io/github/stars/shahafashash/coffee-patterns.svg?style=social&label=Stars)](https://github.com/shahafashash/coffee-patterns/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/shahafashash/coffee-patterns.svg?style=social&label=Forks)](https://github.com/shahafashash/coffee-patterns/network/members)
-[![GitHub watchers](https://img.shields.io/github/watchers/shahafashash/coffee-patterns.svg?style=social&label=Watchers)](https://github.com/shahafashash/coffee-patterns/watchers)
+[![Version](https://img.shields.io/github/v/release/shahafashash/coffee-patterns.svg??style=flat-square&label=Version)](https://github.com/shahafashash/coffee-patterns/releases)
+[![GitHub stars](https://img.shields.io/github/stars/shahafashash/coffee-patterns.svg?style=flat-square&label=Stars)](https://github.com/shahafashash/coffee-patterns)
+[![GitHub forks](https://img.shields.io/github/forks/shahafashash/coffee-patterns.svg?style=flat-square&label=Forks)](https://github.com/shahafashash/coffee-patterns/network/members)
+[![GitHub watchers](https://img.shields.io/github/watchers/shahafashash/coffee-patterns.svg?style=flat-square&label=Watchers)](https://github.com/shahafashash/coffee-patterns/watchers)
 
 </div>
 
-<details>
-    <summary>Table of Contents</summary>
-    <ul>
-        <li><a href="#overview-">Overview</a></li>
-        <li><a href="#features-">Features</a></li>
-        <li><a href="#installation-">Installation</a></li>
-        <li><a href="#usage-">Usage</a></li>
-        <li><a href="#supported-design-patterns-">Supported Design Patterns</a>
-            <ul>
-                <li><a href="#creational-">Creational</a></li>
-                <li><a href="#structural-">Structural</a></li>
-                <li><a href="#behavioral-">Behavioral</a></li>
-            </ul>
-        </li>
-        <li><a href="#usage-example-">Usage Example</a></li>
-        <li><a href="#license-">License</a></li>
-        <li><a href="#contributing-">Contributing</a></li>
-        <li><a href="#feedback-">Feedback</a></li>
-        <li><a href="#acknowledgments-">Acknowledgments</a></li>
-    </ul>
-</details>
+## Table of Contents <a name="table-of-contents"></a>
+- [Coffee Patterns - VSCode Snippets Extension](#coffee-patterns---vscode-snippets-extension)
+  - [Table of Contents ](#table-of-contents-)
+  - [Overview ](#overview-)
+  - [Features ](#features-)
+  - [Installation ](#installation-)
+  - [Usage ](#usage-)
+  - [Supported Design Patterns ](#supported-design-patterns-)
+    - [Creational ](#creational-)
+    - [Structural ](#structural-)
+    - [Behavioral ](#behavioral-)
+  - [Usage Example ](#usage-example-)
+  - [License ](#license-)
+  - [Contributing ](#contributing-)
+  - [Feedback ](#feedback-)
+  - [Acknowledgments ](#acknowledgments-)
 
 ## Overview <a name="overview"></a>
 
