@@ -1,22 +1,41 @@
 # Coffee Patterns - VSCode Snippets Extension
 
-![Coffee Patterns Logo](placeholder.png)
+![Coffee Patterns Logo](url/to/your/logo.png)
+
+<div align="center">
+
+[![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://semver.org)
+[![GitHub stars](https://img.shields.io/github/stars/yourusername/your-repo.svg?style=social&label=Stars)](https://github.com/yourusername/your-repo/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/yourusername/your-repo.svg?style=social&label=Forks)](https://github.com/yourusername/your-repo/network/members)
+[![GitHub watchers](https://img.shields.io/github/watchers/yourusername/your-repo.svg?style=social&label=Watchers)](https://github.com/yourusername/your-repo/watchers)
+
+</div>
+
+<details>
+    <summary>Table of Contents</summary>
+    <ul>
+        <li><a href="#overview-">Overview</a></li>
+        <li><a href="#features-">Features</a></li>
+        <li><a href="#installation-">Installation</a></li>
+        <li><a href="#usage-">Usage</a></li>
+        <li><a href="#supported-design-patterns-">Supported Design Patterns</a>
+            <ul>
+                <li><a href="#creational-">Creational</a></li>
+                <li><a href="#structural-">Structural</a></li>
+                <li><a href="#behavioral-">Behavioral</a></li>
+            </ul>
+        </li>
+        <li><a href="#usage-example-">Usage Example</a></li>
+        <li><a href="#license-">License</a></li>
+        <li><a href="#contributing-">Contributing</a></li>
+        <li><a href="#feedback-">Feedback</a></li>
+        <li><a href="#acknowledgments-">Acknowledgments</a></li>
+    </ul>
+</details>
 
 ## Overview <a name="overview"></a>
 
 Coffee Patterns is a Visual Studio Code extension that provides a collection of handy snippets for various design patterns in the world of software development. Whether you're a seasoned developer or just getting started, these snippets will help you implement common design patterns quickly and efficiently.
-
-# Table of Contents
-- [Coffee Patterns - VSCode Snippets Extension](#coffee-patterns---vscode-snippets-extension)
-  - [Overview ](#overview-)
-- [Table of Contents](#table-of-contents)
-  - [Features ](#features-)
-  - [Installation ](#installation-)
-  - [Usage ](#usage-)
-  - [Supported Design Patterns ](#supported-design-patterns-)
-    - [Creational ](#creational-)
-    - [Structural ](#structural-)
-    - [Behavioral ](#behavioral-)
 
 ## Features <a name="features"></a>
 
@@ -39,8 +58,6 @@ Coffee Patterns is a Visual Studio Code extension that provides a collection of 
 4. Press `Enter` to insert the snippet.
 5. Use the `Tab` key to navigate between placeholders.
 6. Replace the placeholders with your own code.
-
-![Usage Example](placeholder.png or gif)
 
 ## Supported Design Patterns <a name="supported-design-patterns"></a>
 ### Creational <a name="creational"></a>
@@ -68,3 +85,23 @@ Coffee Patterns is a Visual Studio Code extension that provides a collection of 
 - [x] Strategy
 - [x] Template Method
 - [x] Visitor
+
+## Usage Example <a name="usage-example"></a>
+
+![Usage Example](url/to/your/usage/example.png)
+
+## License <a name="license"></a>
+
+This extension is licensed under the [MIT License](LICENSE).
+
+## Contributing <a name="contributing"></a>
+
+If you'd like to contribute to Coffee Patterns, please follow our [contribution guidelines](CONTRIBUTING.md).
+
+## Feedback <a name="feedback"></a>
+
+We welcome your feedback! If you encounter any issues or have suggestions for improvement, please [create an issue](https://github.com/yourusername/your-repo/issues).
+
+## Acknowledgments <a name="acknowledgments"></a>
+
+- Special thanks to [contributors](https://github.com/yourusername/your-repo/graphs/contributors) who have helped make this extension better.
