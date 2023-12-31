@@ -3,10 +3,10 @@ name: Version
 on:
     push:
         branches:
-        - master
+        - main
     pull_request:
         branches:
-        - master
+        - main
 
 jobs:
     version:
@@ -20,7 +20,7 @@ jobs:
 
             - name: Version
               id: version
-              uses: codacy/git-version@latest
+              uses: codacy/git-version@2.7.1
 
             - name: Check version
               run: |
