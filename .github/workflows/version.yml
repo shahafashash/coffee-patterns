@@ -24,9 +24,11 @@ jobs:
 
             - name: Check version
               run: |
-                  echo "Version: ${{ steps.version.outputs.version }}"
+                echo "Previous version: ${{ steps.version.outputs.previous-version }}"
+                echo "New version: ${{ steps.version.outputs.version }}"
 
             - name: Commit version
+              if: ${{ steps.version.outputs.version != steps.version.outputs.previous-version }}
               run: |
                 git config --global user.name "shahafashash"
                 git config --global user.email "shahaf.ashash@icloud.com"
