@@ -5,9 +5,9 @@
 <div align="center">
 
 [![Version](https://img.shields.io/badge/version-1.0.0-blue.svg)](https://semver.org)
-[![GitHub stars](https://img.shields.io/github/stars/yourusername/your-repo.svg?style=social&label=Stars)](https://github.com/yourusername/your-repo/stargazers)
-[![GitHub forks](https://img.shields.io/github/forks/yourusername/your-repo.svg?style=social&label=Forks)](https://github.com/yourusername/your-repo/network/members)
-[![GitHub watchers](https://img.shields.io/github/watchers/yourusername/your-repo.svg?style=social&label=Watchers)](https://github.com/yourusername/your-repo/watchers)
+[![GitHub stars](https://img.shields.io/github/stars/shahafashash/coffee-patterns.svg?style=social&label=Stars)](https://github.com/shahafashash/coffee-patterns/stargazers)
+[![GitHub forks](https://img.shields.io/github/forks/shahafashash/coffee-patterns.svg?style=social&label=Forks)](https://github.com/shahafashash/coffee-patterns/network/members)
+[![GitHub watchers](https://img.shields.io/github/watchers/shahafashash/coffee-patterns.svg?style=social&label=Watchers)](https://github.com/shahafashash/coffee-patterns/watchers)
 
 </div>
 
