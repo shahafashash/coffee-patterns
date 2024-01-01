@@ -26,6 +26,7 @@
   - [License ](#license-)
   - [Contributing ](#contributing-)
   - [Feedback ](#feedback-)
+    - [Opening Issues](#opening-issues)
   - [Acknowledgments ](#acknowledgments-)
 
 ## Overview <a name="overview"></a>
@@ -85,6 +86,7 @@ Coffee Patterns is a Visual Studio Code extension that provides a collection of 
 
 ![Usage Example](url/to/your/usage/example.png)
 
+
 ## License <a name="license"></a>
 
 This extension is licensed under the [MIT License](LICENSE).
@@ -95,8 +97,15 @@ If you'd like to contribute to Coffee Patterns, please follow our [contribution 
 
 ## Feedback <a name="feedback"></a>
 
-We welcome your feedback! If you encounter any issues or have suggestions for improvement, please [create an issue](https://github.com/yourusername/your-repo/issues).
+We welcome your feedback! If you encounter any issues or have suggestions for improvement, please [create an issue](https://github.com/shahafashash/coffee-patterns/issues).
+
+### Opening Issues
+
+Before opening a new issue, please check if there's already an existing one. If not, use one of our templates to provide the necessary details:
+
+- [Bug Report](.github/ISSUE_TEMPLATE/bug_report.md)
+- [Feature Request](.github/ISSUE_TEMPLATE/feature_request.md)
 
 ## Acknowledgments <a name="acknowledgments"></a>
 
-- Special thanks to [contributors](https://github.com/yourusername/your-repo/graphs/contributors) who have helped make this extension better.
+- Special thanks to [contributors](https://github.com/shahafashash/coffee-patterns/graphs/contributors) who have helped make this extension better.
