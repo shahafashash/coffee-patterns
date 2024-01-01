@@ -1472,7 +1472,90 @@
 			"    def ${7:required_operation_2}(self) -> None:",
 			"        pass"
 		],
-		"description": "Implements the Template Method design pattern in Python. Defines the algorithm's skeleton in an operation, allowing subclasses to customize specific steps without changing the overall structure."
+		"description": "Implements the Template Method design pattern in Python. \
+						\nDefines the algorithm's skeleton in an operation, allowing subclasses to customize specific steps without changing the overall structure. \
+						\n \
+						\nExample: \
+						\nfrom abc import ABC, abstractmethod \
+						\n \
+						\n# Abstract Class \
+						\nclass Coffee(ABC): \
+						\n    def prepare(self) -> None: \
+						\n        self.boil_water() \
+						\n        self.brew_coffee_grounds() \
+						\n        self.pour_in_cup() \
+						\n        self.add_condiments() \
+						\n        self.custom_hook() \
+						\n \
+						\n    @abstractmethod \
+						\n    def boil_water(self) -> None: \
+						\n        pass \
+						\n \
+						\n    @abstractmethod \
+						\n    def brew_coffee_grounds(self) -> None: \
+						\n        pass \
+						\n \
+						\n    @abstractmethod \
+						\n    def pour_in_cup(self) -> None: \
+						\n        pass \
+						\n \
+						\n    @abstractmethod \
+						\n    def add_condiments(self) -> None: \
+						\n        pass \
+						\n \
+						\n    def custom_hook(self) -> None: \
+						\n        pass \
+						\n \
+						\n# Concrete Class A\
+						\nclass Latte(Coffee): \
+						\n    def boil_water(self) -> None: \
+						\n        print(\"Boiling 200ml of water.\") \
+						\n \
+						\n    def brew_coffee_grounds(self) -> None: \
+						\n        print(\"Brewing 20g of coffee grounds in hot water.\") \
+						\n \
+						\n    def pour_in_cup(self) -> None: \
+						\n        print(\"Pouring the brewed coffee into a latte cup\") \
+						\n \
+						\n    def add_condiments(self) -> None: \
+						\n        print(\"Steaming and frothing 100ml of milk; adding it to the latte. Sprinkling a pinch of cocoa powder on top.\") \
+						\n \
+						\n    def custom_hook(self) -> None: \
+						\n        print(\"Customizing the latte with a decorative swirl pattern on the foam.\") \
+						\n \
+						\n# Concrete Class B \
+						\nclass Espresso(Coffee): \
+						\n    def boil_water(self) -> None: \
+						\n        print(\"Boiling 50ml of water.\") \
+						\n \
+						\n    def brew_coffee_grounds(self) -> None: \
+						\n        print(\"Brewing 15g of finely ground coffee beans for a strong espresso shot.\") \
+						\n \
+						\n    def pour_in_cup(self) -> None: \
+						\n        print(\"Pouring the intense espresso shot into a small espresso cup.\") \
+						\n \
+						\n    def add_condiments(self) -> None: \
+						\n        print(\"No condiments added to the pure espresso. It's served as is.\") \
+						\n \
+						\n# Client \
+						\ndef main() -> None: \
+						\n    latte = Latte() \
+						\n    latte.prepare() \
+						\n    # Boiling 200ml of water. \
+						\n    # Brewing 20g of coffee grounds in hot water. \
+						\n    # Pouring the brewed coffee into a latte cup \
+						\n    # Steaming and frothing 100ml of milk; adding it to the latte. Sprinkling a pinch of cocoa powder on top. \
+						\n    # Customizing the latte with a decorative swirl pattern on the foam. \
+						\n \
+						\n    espresso = Espresso() \
+						\n    espresso.prepare() \
+						\n    # Boiling 50ml of water. \
+						\n    # Brewing 15g of finely ground coffee beans for a strong espresso shot. \
+						\n    # Pouring the intense espresso shot into a small espresso cup. \
+						\n    # No condiments added to the pure espresso. It's served as is. \
+						\n \
+						\nif __name__ == \"__main__\": \
+						\n    main()"
 	},
 	"Observer": {
 		"scope": "python",
