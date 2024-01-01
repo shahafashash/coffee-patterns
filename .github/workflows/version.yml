@@ -4,9 +4,11 @@ on:
     push:
         branches:
         - main
+        - development
     pull_request:
         branches:
         - main
+        - development
 
 jobs:
     version:
@@ -28,12 +30,13 @@ jobs:
                 echo "New version: ${{ steps.version.outputs.version }}"
 
             - name: Commit version
-              if: ${{ steps.version.outputs.version != steps.version.outputs.previous-version }}
               run: |
-                git config --global user.name "shahafashash"
-                git config --global user.email "shahaf.ashash@icloud.com"
-                git tag ${{ steps.version.outputs.version }}
-                git push origin ${{ steps.version.outputs.version }} --tags
+                previous_tag=$(git describe --abbrev=0 --tags)
+                if [ "$previous_tag" != "${{ steps.version.outputs.version }}" ]; then
+                  git config --global user.name "shahafashash"
+                  git config --global user.email "shahaf.ashash@icloud.com"
+                  git tag ${{ steps.version.outputs.version }}
+                  git push origin ${{ steps.version.outputs.version }} --tags
 
 
 
