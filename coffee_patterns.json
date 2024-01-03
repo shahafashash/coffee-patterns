@@ -1773,6 +1773,7 @@
 			"class ${10:ConcreteHandler1}(${9:AbstractHandler}):",
 			"    \"\"\"",
 			"    Concrete handler class that extends the '${9:AbstractHandler}' interface.",
+			"    Responsible for handling requests of type '${2:TYPE1}'.",
 			"    \"\"\"",
 			"    def ${8:handle}(self, request: ${5:Request}) -> Any:",
 			"        if request.type == ${1:RequestType}.${2:TYPE1}:",
@@ -1782,7 +1783,8 @@
 			"",
 			"class ${11:ConcreteHandler2}(${9:AbstractHandler}):",
 			"    \"\"\"",
-			"    Another concrete handler class that extends the '${9:AbstractHandler}' interface.",
+			"    Concrete handler class that extends the '${9:AbstractHandler}' interface.",
+			"    Responsible for handling requests of type '${3:TYPE2}'.",
 			"    \"\"\"",
 			"    def ${8:handle}(self, request: ${5:Request}) -> Any:",
 			"        if request.type == ${1:RequestType}.${3:TYPE2}:",
@@ -1792,7 +1794,8 @@
 			"",
 			"class ${12:ConcreteHandler3}(${9:AbstractHandler}):",
 			"    \"\"\"",
-			"    Yet another concrete handler class that extends the '${9:AbstractHandler}' interface.",
+			"    Concrete handler class that extends the '${9:AbstractHandler}' interface.",
+			"    Responsible for handling requests of type '${4:TYPE3}'.",
 			"    \"\"\"",
 			"    def ${8:handle}(self, request: ${5:Request}) -> Any:",
 			"        if request.type == ${1:RequestType}.${4:TYPE3}:",
@@ -1801,7 +1804,111 @@
 			"        return super().${8:handle}(request)",
 			""
 		],
-		"description": "Implements the Chain of Responsibility design pattern in Python. Avoids coupling the sender of a request to its receiver by giving more than one object a chance to handle the request. Chains the receiving objects and passes the request along the chain until an object handles it."
+		"description": "Implements the Chain of Responsibility design pattern in Python. \
+						\nAvoids coupling the sender of a request to its receiver by giving more than one object a chance to handle the request. \
+						\nChains the receiving objects and passes the request along the chain until an object handles it. \
+						\n \
+						\nExample: \
+						\nfrom __future__ import annotations \
+						\nfrom abc import ABC, abstractmethod \
+						\nfrom enum import Enum \
+						\nfrom typing import Any, Optional \
+						\n \
+						\n# Enumerates all supported request types. \
+						\nclass RequestType(Enum): \
+						\n    LATTE = 1 \
+						\n    ESPRESSO = 2 \
+						\n    CAPPUCCINO = 3 \
+						\n \
+						\n# Represents a request in the chain of responsibility. \
+						\nclass Request: \
+						\n    def __init__(self, type: RequestType, payload: Any) -> None: \
+						\n        self.type: RequestType = type \
+						\n        self.payload: Any = payload \
+						\n \
+						\n# Abstract base class for 'Handler' objects. \
+						\nclass Handler(ABC): \
+						\n    # Defines an interface for handling requests and implements the successor link. \
+						\n    def set_next(self, handler: Handler) -> Handler: \
+						\n        pass \
+						\n \
+						\n    @abstractmethod \
+						\n    def handle(self, request: Request) -> Any: \
+						\n        pass \
+						\n \
+						\n# Abstract handler class that implements the 'Handler' interface. \
+						\nclass AbstractHandler(Handler): \
+						\n    _next_handler: Optional[Handler] = None \
+						\n \
+						\n    def set_next(self, handler: Handler) -> Handler: \
+						\n        self._next_handler = handler \
+						\n        return handler \
+						\n \
+						\n    def handle(self, request: Request) -> Any: \
+						\n        # The default behavior is to forward the request to the next handler. \
+						\n        if self._next_handler: \
+						\n            return self._next_handler.handle(request) \
+						\n        return None \
+						\n \
+						\n# Concrete handler class that extends the 'AbstractHandler' interface. \
+						\nclass LatteHandler(AbstractHandler): \
+						\n    # Responsible for handling requests of type 'LATTE'. \
+						\n    def handle(self, request: Request) -> Any: \
+						\n        if request.type == RequestType.LATTE: \
+						\n            # Handle the request \
+						\n            details = request.payload \
+						\n            return f\"Making a Latte with {details['milk']} milk and {details['flavor']} flavor.\" \
+						\n        return super().handle(request) \
+						\n \
+						\n# Concrete handler class that extends the 'AbstractHandler' interface. \
+						\nclass EspressoHandler(AbstractHandler): \
+						\n    # Responsible for handling requests of type 'ESPRESSO'. \
+						\n    def handle(self, request: Request) -> Any: \
+						\n        if request.type == RequestType.ESPRESSO: \
+						\n            # Handle the request \
+						\n            details = request.payload \
+						\n            return f\"Preparing Espresso with {details['shots']} shots.\" \
+						\n        return super().handle(request) \
+						\n \
+						\n# Concrete handler class that extends the 'AbstractHandler' interface. \
+						\nclass CappuccinoHandler(AbstractHandler): \
+						\n    # Responsible for handling requests of type 'CAPPUCCINO'. \
+						\n    def handle(self, request: Request) -> Any: \
+						\n        if request.type == RequestType.CAPPUCCINO: \
+						\n            # Handle the request \
+						\n            details = request.payload \
+						\n            return f\"Brewing Cappuccino with {details['foam']} foam.\" \
+						\n        return super().handle(request) \
+						\n \
+						\n# Client \
+						\ndef main() -> None: \
+						\n    latte_handler = LatteHandler() \
+						\n    espresso_handler = EspressoHandler() \
+						\n    cappuccino_handler = CappuccinoHandler() \
+						\n \
+						\n    latte_handler.set_next(espresso_handler).set_next(cappuccino_handler) \
+						\n    coffee_orders_handlers = latte_handler \
+						\n \
+						\n    coffee_orders = [ \
+						\n        Request(RequestType.LATTE, {\"milk\": \"whole\", \"flavor\": \"vanilla\"}), \
+						\n        Request(RequestType.ESPRESSO, {\"shots\": 2}), \
+						\n        Request(RequestType.CAPPUCCINO, {\"foam\": \"creamy\"}), \
+						\n        Request(RequestType.LATTE, {\"milk\": \"2%\", \"flavor\": \"caramel\"}), \
+						\n \
+						\n    for order in coffee_orders: \
+						\n        print(coffee_orders_handlers.handle(order)) \
+						\n \
+						\nif __name__ == \"__main__\": \
+						\n    main()"
+
+
+
+
+
+
+
+
+
 	},
 	"Memento": {
 		"scope": "python",
