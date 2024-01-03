@@ -1436,6 +1436,20 @@
 			"        self.${7:required_operation_2}()",
 			"        self.${8:hook_2}()",
 			"",
+			"	@abstractmethod",
+			"    def ${3:primitive_operation_1}(self) -> None:",
+			"        \"\"\"",
+			"        Abstract primitive operation that must be overridden by subclasses.",
+			"        \"\"\"",
+			"        pass",
+			"",
+			"	@abstractmethod",
+			"    def ${4:primitive_operation_2}(self) -> None:",
+			"        \"\"\"",
+			"        Another abstract primitive operation that must be overridden by subclasses.",
+			"        \"\"\"",
+			"        pass",
+			"",
 			"    @abstractmethod",
 			"    def ${5:required_operation_1}(self) -> None:",
 			"        \"\"\"",
@@ -1466,6 +1480,12 @@
 			"    \"\"\"",
 			"    Concrete subclass that implements the '${1:AbstractClass}' interface.",
 			"    \"\"\"",
+			"	def ${3:primitive_operation_1}(self) -> None:",
+			"        pass",
+			"",
+			"    def ${4:primitive_operation_2}(self) -> None:",
+			"        pass",
+			"",
 			"    def ${5:required_operation_1}(self) -> None:",
 			"        pass",
 			"",
@@ -1627,7 +1647,64 @@
 			"    def ${7:update}(self, subject: ${1:Subject}) -> None:",
 			"        pass"
 		],
-		"description": "Implements the Observer design pattern in Python. Defines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically."
+		"description": "Implements the Observer design pattern in Python. \
+						\nDefines a one-to-many dependency between objects so that when one object changes state, all its dependents are notified and updated automatically. \
+						\n \
+						\nExample: \
+						\nfrom __future__ import annotations \
+						\nfrom abc import ABC, abstractmethod \
+						\nfrom typing import List \
+						\n \
+						\n# Subject \
+						\nclass CoffeeShop(ABC): \
+						\n    def __init__(self) -> None: \
+						\n        self._observers: List[Customer] = [] \
+						\n \
+						\n    def attach(self, observer: Customer) -> None: \
+						\n        self._observers.append(observer) \
+						\n \
+						\n    def detach(self, observer: Customer) -> None: \
+						\n        self._observers.remove(observer) \
+						\n \
+						\n    def notify(self) -> None: \
+						\n        for observer in self._observers: \
+						\n            observer.update(self) \
+						\n \
+						\n# Concrete Subject \
+						\nclass Starbucks(CoffeeShop): \
+						\n    def __init__(self) -> None: \
+						\n        super().__init__() \
+						\n        self._coffee: str = \"\" \
+						\n \
+						\n    @property \
+						\n    def coffee(self) -> str: \
+						\n        return self._coffee \
+						\n \
+						\n    @coffee.setter \
+						\n    def coffee(self, coffee: str) -> None: \
+						\n        self._coffee = coffee \
+						\n        self.notify() \
+						\n \
+						\n# Observer \
+						\nclass Customer(ABC): \
+						\n    @abstractmethod \
+						\n    def update(self, coffee_shop: CoffeeShop) -> None: \
+						\n        pass \
+						\n \
+						\n# Concrete Observer \
+						\nclass CoffeeLover(Customer): \
+						\n    def update(self, coffee_shop: CoffeeShop) -> None: \
+						\n        print(f\"My favorite coffee shop just started serving {coffee_shop.coffee}!\") \
+						\n \
+						\n# Client \
+						\ndef main() -> None: \
+						\n    starbucks = Starbucks() \
+						\n    coffee_lover = CoffeeLover() \
+						\n    starbucks.attach(coffee_lover) \
+						\n    starbucks.coffee = \"Mystical Mocha Madness\" # My favorite coffee shop just started serving Mystical Mocha Madness! \
+						\n \
+						\nif __name__ == \"__main__\": \
+						\n    main()"
 	},
 	"Chain of Responsibility": {
 		"scope": "python",
