@@ -1073,8 +1073,8 @@
 			"    \"\"\"",
 			"    Originator class that creates a memento containing a snapshot of its current internal state.",
 			"    \"\"\"",
-			"    def __init__(self) -> None:",
-			"        self._state: Any = None",
+			"    def __init__(self, state: Any) -> None:",
+			"        self._state: Any = state",
 			"",
 			"    def ${2:save}(self) -> Memento:",
 			"        \"\"\"",
@@ -1132,7 +1132,7 @@
 			"        memento = self._mementos.pop()",
 			"        self._originator.${3:restore}(memento)"
 		],
-		"description": "Implements the Memento design pattern in Python. Captures and externalizes an object's internal state so that it can be restored to this state later, without violating encapsulation."
+		"description": "Implements the Memento design pattern in Python.\nCaptures and externalizes an object's internal state so that it can be restored to this state later, without violating encapsulation.\n\nExample:\nfrom __future__ import annotations\nfrom abc import ABC, abstractmethod\nfrom typing import Any, List\n\n# Originator class that creates a memento containing a snapshot of its current internal state.\nclass Barista: \n    def __init__(self, current_order: Any) -> None:\n        self._current_order: Any = current_order\n \n    def take_order(self, coffee_type: str, size: str, extras: List[str]) -> None: \n		self._current_order = CoffeeOrder(coffee_type, size, extras)\n \n    def save_order(self) -> CoffeeOrder: \n        return CoffeeOrder(self._current_order.coffee_type, self._current_order.size, self._current_order.extras)\n \n    def restore_order(self, memento: CoffeeOrder) -> None: \n        self._current_order = memento.get_state()\n \n# Abstract Memento class that stores the internal state of the originator.\nclass CoffeeOrderSnapshot(ABC): \n    @abstractmethod \n    def get_state(self) -> Any: \n        pass \n \n# Concrete memento class that extends the 'Memento' interface.\nclass CoffeeOrder(CoffeeOrderSnapshot): \n    def __init__(self, coffee_type: str, size: str, extras: List[str]) -> None: \n        self._coffee_type: str = coffee_type \n        self._size: str = size \n        self._extras: List[str] = extras \n \n    def get_state(self) -> Any: \n        return CoffeeOrder(self._coffee_type, self._size, self._extras) \n \n# Caretaker class that keeps track of multiple mementos.\nclass OrderHistory: \n    def __init__(self, barista: Barista) -> None: \n        self._barista: Barista = barista \n        self._mementos: List[CoffeeOrderSnapshot] = [] \n \n    def backup_order(self) -> None: \n        self._mementos.append(self._barista.save_order()) \n \n    def undo_order(self) -> None: \n        if not self._mementos: \n            return \n        memento = self._mementos.pop() \n        self._barista.restore_order(memento) \n \n# Client \ndef main() -> None: \n    barista = Barista(CoffeeOrder(\"Latte\", \"Medium\", [\"Extra Milk\", \"Sugar\"])) \n    order_history = OrderHistory(barista) \n \n    barista.take_order(\"Espresso\", \"Small\", [\"Extra Shot\"]) \n    order_history.backup_order() \n \n    print(f\"Current order: {barista._current_order.coffee_type} {barista._current_order.size} with {barista._current_order.extras}\") \n    # Current order: Espresso Small with ['Extra Shot'] \n \n    # Modify the current order \n    barista.take_order(\"Cappuccino\", \"Large\", [\"Extra Foam\"]) \n \n    print(f\"Modified order: {barista._current_order.coffee_type} {barista._current_order.size} with {barista._current_order.extras}\") \n    # Modified order: Cappuccino Large with ['Extra Foam'] \n \n    # Undo the last order \n    order_history.undo_order() \n \n    print(f\"Restored order: {barista._current_order.coffee_type} {barista._current_order.size} with {barista._current_order.extras}\") \n    # Restored order: Espresso Small with ['Extra Shot'] \n \nif __name__ == \"__main__\": \n    main()"
 	},
 	"State": {
 		"scope": "python",
