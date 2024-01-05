@@ -13,6 +13,10 @@ jobs:
   triage:
     runs-on: ubuntu-latest
     steps:
+    - uses: actions/checkout@v3
+      with:
+        fetch-depth: 0
+
     - uses: github/issue-labeler@v3.3
       with:
         configuration-path: .github/labeler.yml
