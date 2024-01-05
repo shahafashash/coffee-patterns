@@ -103,8 +103,8 @@ We welcome your feedback! If you encounter any issues or have suggestions for im
 
 Before opening a new issue, please check if there's already an existing one. If not, use one of our templates to provide the necessary details:
 
-- [Bug Report](.github/ISSUE_TEMPLATE/bug_report.md)
-- [Feature Request](.github/ISSUE_TEMPLATE/feature_request.md)
+- [Bug Report](.github/ISSUE_TEMPLATE/bug_report.yml)
+- [Feature Request](.github/ISSUE_TEMPLATE/feature_request.yml)
 
 ## Acknowledgments <a name="acknowledgments"></a>
 

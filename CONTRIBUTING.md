@@ -45,14 +45,14 @@ Use google style docstrings for all functions and classes, and follow the [Googl
 If you find a bug, please open an issue with a detailed description of the problem. Include steps to reproduce the bug if possible.
 Please check if the bug has already been reported before opening a new issue to avoid duplicates and follow the issue template provided.
 
-- [Bug Report](.github/ISSUE_TEMPLATE/bug_report.md)
+- [Bug Report](.github/ISSUE_TEMPLATE/bug_report.yml)
 
 ## Suggesting Enhancements
 
 If you have ideas for enhancements or new features, feel free to open an issue. Provide a clear and concise description of your suggestion.
 Please check if the enhancement has already been suggested before opening a new issue to avoid duplicates and follow the issue template provided.
 
-- [Feature Request](.github/ISSUE_TEMPLATE/feature_request.md)
+- [Feature Request](.github/ISSUE_TEMPLATE/feature_request.yml)
 
 ## Pull Request Guidelines
 
