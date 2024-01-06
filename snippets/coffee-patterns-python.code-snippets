@@ -1184,12 +1184,13 @@
 			"    # Handle the request and change the state of the context.",
 			"    pass"
 		],
-		"description": "Implements the State design pattern in Python. Allows an object to alter its behavior when its internal state changes. The object will appear to change its class."
+		"description": "Implements the State design pattern in Python.\nAllows an object to alter its behavior when its internal state changes.\nThe object will appear to change its class.\n\nExample:\nfrom abc import ABC, abstractmethod\nfrom typing import Any\n\n# Context\nclass CoffeeMachine:\n    def __init__(self, state: State) -> None:\n        self._state: State = state\n\n    def request(self) -> None:\n        self._state.handle(self)\n\n    def change_state(self, state: State) -> None:\n        self._state = state\n\n# Abstract State\nclass State(ABC):\n    @abstractmethod\n    def handle(self, context: CoffeeMachine) -> None:\n        pass\n\n# Concrete State A\nclass IdleState(State):\n    def handle(self, context: CoffeeMachine) -> None:\n        print(\"Coffee machine is idle. Ready for a new order.\")\n        context.change_state(AddingWaterState()) \\n\n# Concrete State B\nclass AddingWaterState(State):\n    def handle(self, context: CoffeeMachine) -> None:\n        print(\"Adding water to the coffee machine.\")\n        context.change_state(GrindingCoffeeBeansState())\n\n# Concrete State C\nclass GrindingCoffeeBeansState(State):\n    def handle(self, context: CoffeeMachine) -> None:\n        print(\"Grinding coffee beans.\")\n        context.change_state(BrewingCoffeeState())\n\n# Concrete State D\nclass BrewingCoffeeState(State):\n    def handle(self, context: CoffeeMachine) -> None:\n        print(\"Brewing coffee.\")\n        context.change_state(DispensingCoffeeState())\n\n# Concrete State E\nclass DispensingCoffeeState(State):\n    def handle(self, context: CoffeeMachine) -> None:\n        print(\"Dispensing coffee.\")\n        context.change_state(IdleState())\n\n# Client\ndef main() -> None:\n    coffee_machine = CoffeeMachine(IdleState())\n    coffee_machine.request() # Coffee machine is idle. Ready for a new order.\n    coffee_machine.request() # Adding water to the coffee machine.\n    coffee_machine.request() # Grinding coffee beans.\n    coffee_machine.request() # Brewing coffee.\n    coffee_machine.request() # Dispensing coffee.\n    coffee_machine.request() # Coffee machine is idle. Ready for a new order.\n\nif __name__ == \"__main__\":\n    main()"
 	},
 	"Visitor": {
 		"scope": "python",
 		"prefix": "!visitor",
 		"body": [
+			"from __future__ import annotations",
 			"from abc import ABC, abstractmethod",
 			"",
 			"class ${1:Visitor}(ABC):",
@@ -1235,9 +1236,25 @@
 			"    Another concrete element class that extends the '${4:Element}' interface.",
 			"    \"\"\"",
 			"    def accept(self, visitor: ${1:Visitor}) -> None:",
-			"        visitor.visit_${3:element_type_2}(self)"
+			"        visitor.visit_${3:element_type_2}(self)",
+			"",
+			"class ${5:ConcreteVisitor}(${1:Visitor}):",
+			"    \"\"\"",
+			"    Concrete visitor class that provides concrete implementations for visit methods.",
+			"    \"\"\"",
+			"    def visit_${2:element_type_1}(self, element: ${2:ElementType1}) -> None:",
+			"		\"\"\"",
+			"        Override the visit method for ${2:ElementType1}.",
+			"        \"\"\"",
+			"        pass",
+			"",
+			"    def visit_${3:element_type_2}(self, element: ${3:ElementType2}) -> None:",
+			"		\"\"\"",
+			"        Override the visit method for ${3:ElementType2}.",
+			"        \"\"\"",
+			"        pass",
 		],
-		"description": "Implements the Visitor design pattern in Python. Allows defining new operations without changing the classes of the elements on which they operate."
+		"description": "Implements the Visitor design pattern in Python.\nAllows defining new operations without changing the classes of the elements on which they operate.\n\nExample:\nfrom __future__ import annotations\nfrom abc import ABC, abstractmethod\n\n# Visitor\nclass Customer(ABC):\n    @abstractmethod\n    def visit_starbucks(self, shop: Starbucks) -> None:\n        pass\n\n    @abstractmethod\n    def visit_tim_hortons(self, shop: TimHortons) -> None:\n        pass\n\n# Element\nclass CoffeeShop(ABC):\n    @abstractmethod\n    def accept(self, visitor: Customer) -> None:\n        pass\n\n# Concrete Visitor\nclass CoffeeLover(Customer):\n    def visit_starbucks(self, shop: Starbucks) -> None:\n        print(\"Coffee lover is ordering a Latte at Starbucks.\")\n\n    def visit_tim_hortons(self, shop: TimHortons) -> None:\n        print(\"Coffee lover is ordering a Double Double at Tim Hortons.\")\n\n# Concrete Element\nclass Starbucks(CoffeeShop):\n    def accept(self, visitor: Customer) -> None:\n        visitor.visit_starbucks(self)\n\n# Concrete Element\nclass TimHortons(CoffeeShop):\n    def accept(self, visitor: Customer) -> None:\n        visitor.visit_tim_hortons(self)\n\n# Client\ndef main() -> None:\n    starbucks = Starbucks()\n    tim_hortons = TimHortons()\n\n    coffee_lover = CoffeeLover()\n\n    starbucks.accept(coffee_lover) # Coffee lover is ordering a Latte at Starbucks.\n    tim_hortons.accept(coffee_lover) # Coffee lover is ordering a Double Double at Tim Hortons.\n\nif __name__ == \"__main__\":\n    main()"
 	},
 	"Composite": {
 		"scope": "python",
@@ -1295,7 +1312,7 @@
 			"        for child in self._children:",
 			"            child.${2:operation}()"
 		],
-		"description": "Implements the Composite design pattern in Python. Composes objects into tree structures to represent part-whole hierarchies. Clients can treat individual objects and compositions of objects uniformly."
+		"description": "Implements the Composite design pattern in Python.\nComposes objects into tree structures to represent part-whole hierarchies.\nClients can treat individual objects and compositions of objects uniformly.\n\nExample:\nfrom abc import ABC, abstractmethod\nfrom typing import List\n\n# Component\nclass CoffeeComponent(ABC):\n    @abstractmethod\n    def show(self) -> None:\n        pass\n\n# Leaf\nclass CoffeeLeaf(CoffeeComponent):\n    def __init__(self, name: str) -> None:\n        self._name: str = name\n\n    def show(self) -> None:\n        print(f\"Adding {self._name} to the coffee.\")\n\n# Composite\nclass CoffeeBlend(CoffeeComponent):\n    def __init__(self, name: str) -> None:\n        self._name: str = name\n        self._ingredients: List[CoffeeComponent] = []\n\n    def add(self, ingredient: CoffeeComponent) -> None:\n        self._ingredients.append(ingredient)\n\n    def remove(self, ingredient: CoffeeComponent) -> None:\n        self._ingredients.remove(ingredient)\n\n    def show(self) -> None:\n        print(f\"Making {self._name} blend.\")\n        for ingredient in self._ingredients:\n            ingredient.show()\n\n# Client\ndef main() -> None:\n    # Create a leaf\n    espresso = CoffeeLeaf(\"Espresso\")\n    milk = CoffeeLeaf(\"Milk\")\n    sugar = CoffeeLeaf(\"Sugar\")\n\n    latte = CoffeeBlend(\"Latte\")\n    latte.add(espresso)\n    latte.add(milk)\n\n    sweet_latte = CoffeeBlend(\"Sweet Latte\")\n    sweet_latte.add(latte)\n    sweet_latte.add(sugar)\n\n    latte.show()\n    # Making Latte blend. Adding Espresso to the coffee. Adding Milk to the coffee.\n\n    sweet_latte.show()\n    # Making Sweet Latte blend. Making Latte blend. Adding Espresso to the coffee. Adding Milk to the coffee. Adding Sugar to the coffee.\n\nif __name__ == \"__main__\":\n    main()"
 	},
 	"Iterator": {
 		"prefix": "!iterator",
