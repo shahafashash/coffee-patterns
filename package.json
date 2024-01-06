@@ -2,7 +2,7 @@
 	"name": "coffee-patterns",
 	"displayName": "Coffee Patterns",
 	"description": "Coffee Patterns is a Visual Studio Code extension designed to streamline software development by offering a rich collection of code snippets for various design patterns.",
-	"version": "0.0.1",
+	"version": "1.0.0",
 	"engines": {
 		"vscode": "^1.85.0"
 	},
@@ -18,7 +18,7 @@
 		"snippets": [
 			{
 				"language": "python",
-				"path": "./snippets/python.code-snippets"
+				"path": "./snippets/coffee-patterns-python.code-snippets"
 			}
 		]
 	}
