@@ -1370,6 +1370,7 @@
 		"scope": "python",
 		"prefix": "!mediator",
 		"body": [
+			"from __future__ import annotations",
 			"from abc import ABC, abstractmethod",
 			"from typing import Any, List",
 			"",
@@ -1449,6 +1450,6 @@
 			"        \"\"\"",
 			"        pass"
 		],
-		"description": "Implements the Mediator design pattern in Python. Defines an object that centralizes communication between a set of objects, allowing them to communicate without being directly connected."
+		"description": "Implements the Mediator design pattern in Python.\nDefines an object that centralizes communication between a set of objects, allowing them to communicate without being directly connected.\n\nExample:\nfrom __future__ import annotations\nfrom abc import ABC, abstractmethod\nfrom typing import Any, List\n\n# Mediator\nclass Mediator(ABC):\n    @abstractmethod\n    def register_colleague(self, colleague: Colleague) -> None:\n        pass\n\n    @abstractmethod\n    def send(self, sender: Colleague, event: Any) -> None:\n        pass\n\n# Colleague\nclass Colleague(ABC):\n    def __init__(self, mediator: Mediator) -> None:\n        self._mediator: Mediator = mediator\n\n    @abstractmethod\n    def send(self, event: Any) -> None:\n        pass\n\n    @abstractmethod\n    def receive(self, event: Any) -> None:\n        pass\n\n# Concrete Mediator\nclass Waiter(Mediator):\n    def __init__(self) -> None:\n        self._colleagues: List[Colleague] = []\n\n    def register_colleague(self, colleague: Colleague) -> None:\n        self._colleagues.append(colleague)\n\n    def send(self, sender: Colleague, event: Any) -> None:\n        for colleague in self._colleagues:\n            if colleague != sender:\n                colleague.receive(event)\n\n# Concrete Colleague\nclass Barista(Colleague):\n    def send(self, event: Any) -> None:\n        self._mediator.send(self, event)\n\n    def receive(self, event: Any) -> None:\n        print(f\"Barista received: {event}\")\n\n# Concrete Colleague\nclass Customer(Colleague):\n    def send(self, event: Any) -> None:\n        self._mediator.send(self, event)\n\n    def receive(self, event: Any) -> None:\n        print(f\"Customer received: {event}\")\n\n# Client\ndef main() -> None:\n    waiter = Waiter()\n\n    barista = Barista(waiter)\n    customer = Customer(waiter)\n\n    waiter.register_colleague(barista)\n    waiter.register_colleague(customer)\n\n    barista.send(\"Order for a Latte.\")\n    # Customer received: Order for a Latte.\n\n    customer.send(\"Thank you!\")\n    # Barista received: Thank you!\n\nif __name__ == \"__main__\":\n    main()"
 	}
 }
