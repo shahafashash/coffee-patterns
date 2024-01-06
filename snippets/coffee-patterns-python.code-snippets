@@ -1364,7 +1364,7 @@
 			"        \"\"\"",
 			"        return ${1:ConcreteIterator}(self._collection)"
 		],
-		"description": "Implements the Iterator design pattern in Python. Provides a way to access the elements of an aggregate object sequentially without exposing its underlying representation."
+		"description": "Implements the Iterator design pattern in Python.\nProvides a way to access the elements of an aggregate object sequentially without exposing its underlying representation.\n\nExample:\nfrom collections.abc import Iterable, Iterator\nfrom typing import Any, List\n\n# Iterator\nclass MenuIterator(Iterator):\n    def __init__(self, menu_items: Iterable) -> None:\n        self._menu_items: Iterable = menu_items\n        self._position: int = 0\n\n    def __iter__(self) -> Iterator:\n        return self\n\n    def __next__(self) -> Any:\n        try:\n            value = self._menu_items[self._position]\n            self._position += 1\n            return value\n        except IndexError:\n            raise StopIteration\n\n# Iterable\nclass Menu(Iterable):\n    def __init__(self, menu_items: List[str]) -> None:\n        self._menu_items: List[str] = menu_items\n\n    def __iter__(self) -> Iterator:\n        return MenuIterator(self._menu_items)\n\n# Client\ndef main() -> None:\n    items = [\"Capuccino\", \"Espresso\", \"Latte\", \"Mocha\"]\n    menu = Menu(items)\n\n    for item in menu:\n        print(item)\n\nif __name__ == \"__main__\":\n    main()"
 	},
 	"Mediator": {
 		"scope": "python",
