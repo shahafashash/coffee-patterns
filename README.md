@@ -68,7 +68,7 @@ Coffee Patterns is a Visual Studio Code extension that provides a collection of 
 - [x] Decorator
 - [x] Proxy
 - [x] Composite
-- [ ] Facade
+- [x] Facade
 - [ ] Flyweight
 ### Behavioral <a name="behavioral"></a>
 - [x] Chain of Responsibility
