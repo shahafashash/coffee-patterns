@@ -1502,5 +1502,5 @@
 			"		# Implementation of ${5:Subsystem2} operation.",
 			"        pass"
 		],
-		"description": "Implements the Facade design pattern in Python.\nProvides a unified interface to a set of interfaces in a subsystem.\nDefines a higher-level interface that makes the subsystem easier to use."
+		"description": "Implements the Facade design pattern in Python.\nProvides a unified interface to a set of interfaces in a subsystem.\nDefines a higher-level interface that makes the subsystem easier to use.\n\nExample:\nfrom __future__ import annotations\n\n# Facade\nclass CoffeeMachineFacade:\n    def __init__(self) -> None:\n        self._milk_frother: MilkFrother = MilkFrother()\n        self._coffee_maker: CoffeeMaker = CoffeeMaker()\n\n    def make_coffee(self) -> None:\n        self._milk_frother.froth_milk()\n        self._coffee_maker.brew_coffee()\n\n# Subsystem \nclass MilkFrother:\n    def froth_milk(self) -> None:\n        print(\"Frothing milk...\")\n\n# Subsystem 2\nclass CoffeeMaker:\n    def brew_coffee(self) -> None:\n        print(\"Brewing coffee...\")\n\n# Clie\ndef main() -> None:\n    coffee_machine = CoffeeMachineFacade()\n    coffee_machine.make_coffee()\n    # Frothing milk...\n    # Brewing coffee...\n\nif __name__ == \"__main__\":\n    main()"
 }
