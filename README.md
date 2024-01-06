@@ -101,10 +101,10 @@ We welcome your feedback! If you encounter any issues or have suggestions for im
 
 ### Opening Issues
 
-Before opening a new issue, please check if there's already an existing one. If not, use one of our templates to provide the necessary details:
+Before opening a new issue, please check if there's already an existing one. If not, use one of our forms to provide the necessary details:
 
-- [Bug Report](.github/ISSUE_TEMPLATE/bug_report.yml)
-- [Feature Request](.github/ISSUE_TEMPLATE/feature_request.yml)
+- [Bug Report](https://github.com/shahafashash/coffee-patterns/issues/new?assignees=&labels=bug%2Ctriage&projects=&template=bug_report.yml&title=%5BBUG%5D%3A+)
+- [Feature Request](https://github.com/shahafashash/coffee-patterns/issues/new?assignees=&labels=feature%2Ctriage&projects=&template=feature_request.yml&title=%5BFEATURE+REQUEST%5D%3A+)
 
 ## Acknowledgments <a name="acknowledgments"></a>
 

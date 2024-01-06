@@ -43,16 +43,16 @@ Use google style docstrings for all functions and classes, and follow the [Googl
 ## Reporting Bugs
 
 If you find a bug, please open an issue with a detailed description of the problem. Include steps to reproduce the bug if possible.
-Please check if the bug has already been reported before opening a new issue to avoid duplicates and follow the issue template provided.
+Please check if the bug has already been reported before opening a new issue to avoid duplicates and follow the issue form provided.
 
-- [Bug Report](.github/ISSUE_TEMPLATE/bug_report.yml)
+- [Bug Report](https://github.com/shahafashash/coffee-patterns/issues/new?assignees=&labels=bug%2Ctriage&projects=&template=bug_report.yml&title=%5BBUG%5D%3A+)
 
 ## Suggesting Enhancements
 
 If you have ideas for enhancements or new features, feel free to open an issue. Provide a clear and concise description of your suggestion.
-Please check if the enhancement has already been suggested before opening a new issue to avoid duplicates and follow the issue template provided.
+Please check if the enhancement has already been suggested before opening a new issue to avoid duplicates and follow the issue form provided.
 
-- [Feature Request](.github/ISSUE_TEMPLATE/feature_request.yml)
+- [Feature Request](https://github.com/shahafashash/coffee-patterns/issues/new?assignees=&labels=feature%2Ctriage&projects=&template=feature_request.yml&title=%5BFEATURE+REQUEST%5D%3A+)
 
 ## Pull Request Guidelines
 
@@ -64,7 +64,7 @@ Please check if the enhancement has already been suggested before opening a new 
 
 ## Code of Conduct
 
-This project follows the [Code of Conduct](CODE_OF_CONDUCT.md). Please read it to understand what is expected of you.
+This project follows the [Code of Conduct](https://github.com/shahafashash/coffee-patterns/blob/main/CODE_OF_CONDUCT.md). Please read it to understand what is expected of you.
 
 ## Questions
 
