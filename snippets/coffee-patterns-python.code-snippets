@@ -1,7 +1,7 @@
 {
-	"Factory Pattern": {
+	"Factory Method Pattern": {
 		"scope": "python",
-		"prefix": "!factory",
+		"prefix": "!factory_method",
 		"body": [
 			"from abc import ABC, abstractmethod",
 			"",
@@ -46,6 +46,14 @@
 			"        \"\"\"",
 			"        pass",
 			"",
+			"    def ${2:operation}(self) -> None:",
+			"        \"\"\"",
+			"        Placeholder for the operation that the Creator performs.",
+			"        Replace this with the actual functionality of your Creator.",
+			"        \"\"\"",
+			"        product = self.${6:factory_method}()",
+			"        product.${2:operation}()",
+			"",
 			"class ${7:ConcreteCreatorA}(${5:Creator}):",
 			"    \"\"\"",
 			"    Concrete creator class that implements the '${5:Creator}' interface.",
@@ -75,7 +83,7 @@
 			"        return ${4:ConcreteProductB}()",
 			""
 		],
-		"description": "Implements the Factory design pattern in Python.\nDefines:\n- An abstract class for products.\n- Concrete product classes that implement the interface.\n- An abstract creator class with a factory method.\n- Concrete creator classes that override the factory method to create specific product instances.\n\nExample:\nfrom abc import ABC, abstractmethod\n\n# Product\nclass Coffee(ABC):\n    @abstractmethod\n    def brew(self) -> None:\n        pass\n\n# ConcreteProduct\nclass Espresso(Coffee):\n    def brew(self) -> None:\n        print(\"Brewing Espresso\")\n\n# ConcreteProduct\nclass Latte(Coffee):\n    def brew(self) -> None:\n        print(\"Brewing Latte\")\n\n# Creator\nclass CoffeeMachine(ABC):\n    @abstractmethod\n    def create_coffee(self) -> Coffee:\n        pass\n\n# ConcreteCreator\nclass EspressoMachine(CoffeeMachine):\n    def create_coffee(self) -> Espresso:\n        return Espresso()\n\n# ConcreteCreator\nclass LatteMachine(CoffeeMachine):\n    def create_coffee(self) -> Latte:\n        return Latte()\n\n# Client\ndef main() -> None:\n    espresso_machine = EspressoMachine()\n    latte_machine = LatteMachine()\n\n    espresso_machine.create_coffee().brew()\n    latte_machine.create_coffee().brew()\n\nif __name__ == \"__main__\":\n    main()"
+		"description": "Implements the Factory Method design pattern in Python.\nDefines:\n- An abstract class for products.\n- Concrete product classes that implement the interface.\n- An abstract creator class with a factory method.\n- Concrete creator classes that override the factory method to create specific product instances and a functionality placeholder..\n\nExample:\nfrom abc import ABC, abstractmethod\n\n# Product\nclass Coffee(ABC):\n    @abstractmethod\n    def brew(self) -> None:\n        pass\n\n# ConcreteProduct\nclass Espresso(Coffee):\n    def brew(self) -> None:\n        print(\"Brewing Espresso\")\n\n# ConcreteProduct\nclass Latte(Coffee):\n    def brew(self) -> None:\n        print(\"Brewing Latte\")\n\n# Creator\nclass CoffeeMachine(ABC):\n    @abstractmethod\n    def create_coffee(self) -> Coffee:\n        pass\n    def brew_coffee(self) -> None:\n        coffee = self.create_coffee()\n        coffee.brew()\n\n# ConcreteCreator\nclass EspressoMachine(CoffeeMachine):\n    def create_coffee(self) -> Coffee:\n        return Espresso()\n\n# ConcreteCreator\nclass LatteMachine(CoffeeMachine):\n    def create_coffee(self) -> Coffee:\n        return Latte()\n\n# Client\ndef main() -> None:\n    espresso_machine = EspressoMachine()\n    latte_machine = LatteMachine()\n\n    espresso_machine.brew_coffee()\n    latte_machine.brew_coffee()\n\nif __name__ == \"__main__\":\n    main()"
 	},
 
 	"Abstract Factory": {
