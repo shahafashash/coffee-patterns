@@ -19,6 +19,10 @@
 			{
 				"language": "python",
 				"path": "./snippets/coffee-patterns-python.code-snippets"
+			},
+			{
+				"language": "python",
+				"path": "./snippets/coffee-blends-python.code-snippets"
 			}
 		]
 	}
