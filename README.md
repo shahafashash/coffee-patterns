@@ -22,7 +22,10 @@
     - [Creational ](#creational-)
     - [Structural ](#structural-)
     - [Behavioral ](#behavioral-)
+  - [Supported Design Patterns Combinations ](#supported-design-patterns-combinations-)
   - [Usage Example ](#usage-example-)
+    - [Using a Specific Design Pattern ](#using-a-specific-design-pattern-)
+    - [Using a Design Pattern Combination ](#using-a-design-pattern-combination-)
   - [License ](#license-)
   - [Contributing ](#contributing-)
   - [Feedback ](#feedback-)
@@ -49,7 +52,7 @@ Coffee Patterns is a Visual Studio Code extension that provides a collection of 
 ## Usage <a name="usage"></a>
 
 1. Open a file in Visual Studio Code.
-2. Start typing the name of a design pattern.
+2. Start typing `!` followed by the name of the desired design pattern. For example, `!adapter`.
 3. Select the desired snippet from the IntelliSense suggestions.
 4. Press `Enter` to insert the snippet.
 5. Use the `Tab` key to navigate between placeholders.
@@ -72,7 +75,7 @@ Coffee Patterns is a Visual Studio Code extension that provides a collection of 
 - [ ] Flyweight
 ### Behavioral <a name="behavioral"></a>
 - [x] Chain of Responsibility
-- [ ] Command
+- [x] Command
 - [x] Iterator
 - [x] Mediator
 - [x] Memento
@@ -82,9 +85,19 @@ Coffee Patterns is a Visual Studio Code extension that provides a collection of 
 - [x] Template Method
 - [x] Visitor
 
+## Supported Design Patterns Combinations <a name="supported-design-patterns-combinations"></a>
+- [x] Factory Method + Singleton
+
 ## Usage Example <a name="usage-example"></a>
+### Using a Specific Design Pattern <a name="using-a-specific-design-pattern"></a>
+To use a specific design pattern, type `!` and start typing the name of the design pattern. Select the desired snippet from the IntelliSense suggestions and press `Enter` to insert the snippet. Use the `Tab` key to navigate between placeholders and replace them with your own code.
 
 ![Usage Example](url/to/your/usage/example.png)
+
+### Using a Design Pattern Combination <a name="using-a-design-pattern-combination"></a>
+To use a design pattern combination, type `!blend` and start typing the name of one of the design patterns in the combination. Select the desired snippet from the IntelliSense suggestions and press `Enter` to insert the snippet. Use the `Tab` key to navigate between placeholders and replace them with your own code.
+
+![Usage Example](url/to/your/usage/example2.png)
 
 
 ## License <a name="license"></a>
