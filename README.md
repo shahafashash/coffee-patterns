@@ -1,6 +1,6 @@
 # Coffee Patterns - VSCode Snippets Extension
 
-![Coffee Patterns Logo](url/to/your/logo.png)
+![Coffee Patterns Logo](https://raw.githubusercontent.com/shahafashash/coffee-patterns/main/images/logo.png)
 
 <div align="center">
 
