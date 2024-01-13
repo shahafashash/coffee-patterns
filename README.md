@@ -1,13 +1,15 @@
 # Coffee Patterns - VSCode Snippets Extension
 
-![Coffee Patterns Logo](url/to/your/logo.png)
+<div align="center">
+  <img src="https://github.com/shahafashash/coffee-patterns/blob/development/images/logo.png" alt="Coffee Patterns Logo" width="600">
+</div>
 
 <div align="center">
 
 [![Version](https://img.shields.io/github/v/release/shahafashash/coffee-patterns.svg??style=flat-square&label=Version)](https://github.com/shahafashash/coffee-patterns/releases)
+[![installs](https://img.shields.io/visual-studio-marketplace/i/shahafashash.coffee-patterns.svg?style=flat-square&label=Installs)](https://marketplace.visualstudio.com/items?itemName=shahafashash.coffee-patterns)
 [![GitHub stars](https://img.shields.io/github/stars/shahafashash/coffee-patterns.svg?style=flat-square&label=Stars)](https://github.com/shahafashash/coffee-patterns)
-[![GitHub forks](https://img.shields.io/github/forks/shahafashash/coffee-patterns.svg?style=flat-square&label=Forks)](https://github.com/shahafashash/coffee-patterns/network/members)
-[![GitHub watchers](https://img.shields.io/github/watchers/shahafashash/coffee-patterns.svg?style=flat-square&label=Watchers)](https://github.com/shahafashash/coffee-patterns/watchers)
+[![GitHub Contributors](https://img.shields.io/github/contributors/shahafashash/coffee-patterns.svg?style=flat-square)](https://github.com/shahafashash/coffee-patterns/graphs/contributors)
 
 </div>
 
