@@ -94,12 +94,12 @@ Coffee Patterns is a Visual Studio Code extension that provides a collection of 
 ### Using a Specific Design Pattern <a name="using-a-specific-design-pattern"></a>
 To use a specific design pattern, type `!` and start typing the name of the design pattern. Select the desired snippet from the IntelliSense suggestions and press `Enter` to insert the snippet. Use the `Tab` key to navigate between placeholders and replace them with your own code.
 
-![Usage Example](url/to/your/usage/example.png)
+![Usage Example1](https://github.com/shahafashash/coffee-patterns/blob/development/images/usage-example1.gif)
 
 ### Using a Design Pattern Combination <a name="using-a-design-pattern-combination"></a>
 To use a design pattern combination, type `!blend` and start typing the name of one of the design patterns in the combination. Select the desired snippet from the IntelliSense suggestions and press `Enter` to insert the snippet. Use the `Tab` key to navigate between placeholders and replace them with your own code.
 
-![Usage Example](url/to/your/usage/example2.png)
+![Usage Example2](https://github.com/shahafashash/coffee-patterns/blob/development/images/usage-example2.gif)
 
 
 ## License <a name="license"></a>
