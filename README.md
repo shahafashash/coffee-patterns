@@ -74,7 +74,7 @@ Coffee Patterns is a Visual Studio Code extension that provides a collection of 
 - [x] Proxy
 - [x] Composite
 - [x] Facade
-- [ ] Flyweight
+- [x] Flyweight
 ### Behavioral <a name="behavioral"></a>
 - [x] Chain of Responsibility
 - [x] Command
@@ -89,7 +89,7 @@ Coffee Patterns is a Visual Studio Code extension that provides a collection of 
 
 ## Supported Design Patterns Combinations <a name="supported-design-patterns-combinations"></a>
 - [x] Factory Method + Singleton
-- [ ] Composite + Visitor
+- [x] Composite + Visitor
 - [ ] Proxy + Observer
 
 ## Usage Example <a name="usage-example"></a>
