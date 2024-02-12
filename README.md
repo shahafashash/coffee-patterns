@@ -90,7 +90,7 @@ Coffee Patterns is a Visual Studio Code extension that provides a collection of 
 ## Supported Design Patterns Combinations <a name="supported-design-patterns-combinations"></a>
 - [x] Factory Method + Singleton
 - [x] Composite + Visitor
-- [ ] Proxy + Observer
+- [x] Proxy + Observer
 
 ## Usage Example <a name="usage-example"></a>
 ### Using a Specific Design Pattern <a name="using-a-specific-design-pattern"></a>
