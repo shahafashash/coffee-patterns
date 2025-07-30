@@ -1,2 +1,15 @@
 blank_issues_enabled: false
+contact_links:
+  - name: 🛡️ Security Vulnerabilities
+    url: https://github.com/shahafashash/coffee-patterns/security/advisories/new
+    about: Report security vulnerabilities privately
+  - name: 💬 Discussions
+    url: https://github.com/shahafashash/coffee-patterns/discussions
+    about: Ask questions and discuss ideas with the community
+  - name: 📚 Documentation
+    url: https://github.com/shahafashash/coffee-patterns/wiki
+    about: Check our documentation and guides
+  - name: ❓ Support
+    url: https://github.com/shahafashash/coffee-patterns/discussions/categories/q-a
+    about: Get help and support from the community
 

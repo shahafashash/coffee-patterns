@@ -1,20 +1,50 @@
-{
-	"name": "coffee-patterns",
+{	"name": "coffee-patterns",
 	"displayName": "Coffee Patterns",
-	"description": "Coffee Patterns is a Visual Studio Code extension designed to streamline software development by offering a rich collection of code snippets for various design patterns.",
-	"version": "1.0.1",
+	"description": "Coffee Patterns is a Visual Studio Code extension with 23 individual patterns and 6 advanced pattern combinations, featuring comprehensive coffee-themed examples for streamlined software development.",
+	"version": "1.1.0",
 	"publisher": "shahafashash",
+	"license": "MIT",
 	"engines": {
 		"vscode": "^1.85.0"
 	},
 	"categories": [
 		"Snippets"
 	],
+	"keywords": [
+		"design patterns",
+		"python",
+		"snippets",
+		"coffee",
+		"programming",
+		"software engineering",
+		"oop",
+		"creational patterns",
+		"structural patterns",
+		"behavioral patterns",
+		"singleton",
+		"factory",
+		"observer",
+		"decorator",
+		"strategy",
+		"code templates",
+		"productivity"
+	],
 	"repository": {
 		"type": "git",
 		"url": "https://github.com/shahafashash/coffee-patterns"
 	},
+	"bugs": {
+		"url": "https://github.com/shahafashash/coffee-patterns/issues"
+	},
+	"homepage": "https://github.com/shahafashash/coffee-patterns#readme",
 	"icon": "images/icon.png",
+	"galleryBanner": {
+		"color": "#8B4513",
+		"theme": "dark"
+	},
+	"activationEvents": [
+		"onLanguage:python"
+	],
 	"contributes": {
 		"snippets": [
 			{

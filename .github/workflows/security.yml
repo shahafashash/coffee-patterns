@@ -1,0 +1,105 @@
+name: 🔒 Security Scan
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+  push:
+    branches: [ main, develop ]
+  schedule:
+    # Run security scan daily at 2 AM UTC
+    - cron: '0 2 * * *'
+
+permissions:
+  contents: read
+  pull-requests: write
+  security-events: write
+
+jobs:
+  security-check:
+    name: Security Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 🏗️ Checkout Repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: 🔍 Run Trivy Security Scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+
+    - name: 📊 Upload Trivy Scan Results
+      uses: github/codeql-action/upload-sarif@v3
+      if: always()
+      with:
+        sarif_file: 'trivy-results.sarif'
+
+    - name: 🚨 Check for Secrets
+      uses: trufflesecurity/trufflehog@main
+      with:
+        path: ./
+        base: main
+        head: HEAD
+        extra_args: --debug --only-verified
+
+    - name: 🛡️ Validate File Sizes
+      run: |
+        echo "🔍 Checking for large files..."
+        find . -type f -size +50M -not -path "./.git/*" | while read file; do
+          echo "❌ Large file detected: $file ($(du -h "$file" | cut -f1))"
+          echo "::error file=$file::File exceeds 50MB limit"
+          exit 1
+        done
+        echo "✅ No large files found"
+
+    - name: 🧹 Check for Suspicious Patterns
+      run: |
+        echo "🔍 Scanning for suspicious patterns..."
+
+        # Check for potential spam indicators
+        if grep -r -i "click here\|visit.*site\|buy now\|free.*money\|guarantee.*profit" . --exclude-dir=.git; then
+          echo "::error::Potential spam content detected"
+          exit 1
+        fi
+
+        # Check for malicious file extensions
+        if find . -name "*.exe" -o -name "*.bat" -o -name "*.cmd" -o -name "*.scr" -not -path "./.git/*"; then
+          echo "::error::Potentially malicious file types detected"
+          exit 1
+        fi
+
+        # Check for suspicious URLs
+        if grep -r "bit\.ly\|tinyurl\|t\.co" . --exclude-dir=.git; then
+          echo "::warning::Shortened URLs detected - please review"
+        fi
+
+        echo "✅ No suspicious patterns found"
+
+    - name: 📝 License Compliance Check
+      run: |
+        echo "📋 Checking license compliance..."
+        if [ ! -f "LICENSE" ] && [ ! -f "LICENSE.md" ] && [ ! -f "LICENSE.txt" ]; then
+          echo "::warning::No license file found"
+        else
+          echo "✅ License file present"
+        fi
+
+  dependency-review:
+    name: 📦 Dependency Review
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+
+    steps:
+    - name: 🏗️ Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: 🔍 Dependency Review
+      uses: actions/dependency-review-action@v4
+      with:
+        fail-on-severity: moderate
+        allow-licenses: MIT, Apache-2.0, BSD-2-Clause, BSD-3-Clause, ISC

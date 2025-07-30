@@ -1,0 +1,142 @@
+name: 🔍 Code Quality
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+  push:
+    branches: [ main, develop ]
+
+permissions:
+  contents: read
+  pull-requests: write
+  checks: write
+
+jobs:
+  lint-and-test:
+    name: Code Quality Check
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 🏗️ Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: 🔧 Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '18'
+        cache: 'npm'
+
+    - name: 📦 Install Dependencies
+      run: |
+        if [ -f "package.json" ]; then
+          npm ci
+        else
+          echo "ℹ️ No package.json found, skipping npm install"
+        fi
+
+    - name: 🧹 Lint JSON Files
+      run: |
+        echo "🔍 Validating JSON syntax..."
+        find . -name "*.json" -not -path "./node_modules/*" -not -path "./.git/*" | while read file; do
+          echo "Checking: $file"
+          if ! python -m json.tool "$file" > /dev/null 2>&1; then
+            echo "::error file=$file::Invalid JSON syntax"
+            exit 1
+          fi
+        done
+        echo "✅ All JSON files are valid"
+
+    - name: 🔍 Validate VS Code Snippets
+      run: |
+        echo "🔍 Validating VS Code snippet files..."
+        for file in snippets/*.code-snippets; do
+          if [ -f "$file" ]; then
+            echo "Validating: $file"
+            # Check JSON syntax
+            if ! python -m json.tool "$file" > /dev/null 2>&1; then
+              echo "::error file=$file::Invalid JSON syntax in snippet file"
+              exit 1
+            fi
+
+            # Check for required snippet structure
+            if ! grep -q '"prefix"' "$file" || ! grep -q '"body"' "$file" || ! grep -q '"description"' "$file"; then
+              echo "::error file=$file::Missing required snippet fields (prefix, body, description)"
+              exit 1
+            fi
+
+            echo "✅ $file is valid"
+          fi
+        done
+
+    - name: 📊 Check File Sizes and Types
+      run: |
+        echo "📊 Analyzing repository content..."
+
+        # Count files by type
+        echo "File type distribution:"
+        find . -type f -not -path "./.git/*" | grep -E '\.[a-zA-Z]+$' | sed 's/.*\.//' | sort | uniq -c | sort -nr
+
+        # Check for oversized files
+        echo "Checking for large files..."
+        find . -type f -size +10M -not -path "./.git/*" | while read file; do
+          size=$(du -h "$file" | cut -f1)
+          echo "::warning file=$file::Large file detected: $size"
+        done
+
+    - name: 🛡️ Content Validation
+      run: |
+        echo "🛡️ Validating content quality..."
+
+        # Check for empty or placeholder files
+        find . -name "*.md" -not -path "./.git/*" | while read file; do
+          if [ -s "$file" ]; then
+            # Check for placeholder content
+            if grep -q "TODO\|FIXME\|placeholder\|lorem ipsum" "$file" 2>/dev/null; then
+              echo "::warning file=$file::Contains placeholder content"
+            fi
+          else
+            echo "::warning file=$file::Empty markdown file"
+          fi
+        done
+
+        # Validate README exists and has content
+        if [ ! -f "README.md" ]; then
+          echo "::error::README.md is required"
+          exit 1
+        elif [ ! -s "README.md" ]; then
+          echo "::error::README.md is empty"
+          exit 1
+        fi
+
+        echo "✅ Content validation complete"
+
+    - name: 📈 Generate Quality Report
+      run: |
+        echo "📈 Generating quality report..."
+
+        echo "## 📊 Repository Quality Report" > quality-report.md
+        echo "" >> quality-report.md
+        echo "- **Total files**: $(find . -type f -not -path './.git/*' | wc -l)" >> quality-report.md
+        echo "- **Code snippets**: $(find snippets -name '*.code-snippets' 2>/dev/null | wc -l)" >> quality-report.md
+        echo "- **Documentation files**: $(find . -name '*.md' -not -path './.git/*' | wc -l)" >> quality-report.md
+        echo "- **Repository size**: $(du -sh . | cut -f1)" >> quality-report.md
+        echo "" >> quality-report.md
+        echo "✅ All quality checks passed!" >> quality-report.md
+
+        cat quality-report.md
+
+    - name: 📝 Comment PR with Quality Report
+      if: github.event_name == 'pull_request'
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');
+          if (fs.existsSync('quality-report.md')) {
+            const report = fs.readFileSync('quality-report.md', 'utf8');
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: report
+            });
+          }

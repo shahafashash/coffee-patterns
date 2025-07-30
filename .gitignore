@@ -1,3 +1,30 @@
-node_modules
+# Dependencies
+node_modules/
+npm-debug.log*
+
+# Build artifacts
 *.vsix
+out/
+dist/
+
+# Development files
+.vscode-test/
+vsc-extension-quickstart.md
+
+# Media files (too large for git)
 *.mp4
+*.avi
+*.mov
+
+# Temporary files
+*.tmp
+*.temp
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Environment variables
+.env
+.env.local
