@@ -13,7 +13,7 @@
             "    \"\"\"",
             "    _instances: Dict[type, Any] = {}",
             "",
-            "    def __call__(cls: type, *args, **kwargs):",
+            "    def __call__(cls: type[Self], *args, **kwargs):",
             "        \"\"\"",
             "        Override the default behavior of creating instances.",
             "        Ensures that only one instance of the class exists.",
