@@ -289,7 +289,7 @@
             "",
             "    def build_${2:part1}(self) -> ${7:ConcreteBuilder}:",
             "        \"\"\"",
-            "        Overrides the build_${2:part1} method to add '${2:part1}' to the product.",
+            "        Override the build_${2:part1} method to add '${2:part1}' to the product.",
             "",
             "        Returns:",
             "            ${7:ConcreteBuilder}: The builder object.",
