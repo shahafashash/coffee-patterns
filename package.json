@@ -42,9 +42,6 @@
 		"color": "#8B4513",
 		"theme": "dark"
 	},
-	"activationEvents": [
-		"onLanguage:python"
-	],
 	"contributes": {
 		"snippets": [
 			{
