@@ -1290,7 +1290,7 @@
             "        \"\"\"",
             "        Override the visit method for ${3:ElementType2}.",
             "        \"\"\"",
-            "        pass"
+            "        pass",
         ],
         "description":"Implements the Visitor design pattern in Python.\nAllows defining new operations without changing the classes of the elements on which they operate.\n\nExample:\nfrom __future__ import annotations\nfrom abc import ABC, abstractmethod\n\n# Visitor\nclass Customer(ABC):\n    @abstractmethod\n    def visit_starbucks(self, shop: Starbucks) -> None:\n        pass\n\n    @abstractmethod\n    def visit_tim_hortons(self, shop: TimHortons) -> None:\n        pass\n\n# Element\nclass CoffeeShop(ABC):\n    @abstractmethod\n    def accept(self, visitor: Customer) -> None:\n        pass\n\n# Concrete Visitor\nclass CoffeeLover(Customer):\n    def visit_starbucks(self, shop: Starbucks) -> None:\n        print(\"Coffee lover is ordering a Latte at Starbucks.\")\n\n    def visit_tim_hortons(self, shop: TimHortons) -> None:\n        print(\"Coffee lover is ordering a Double Double at Tim Hortons.\")\n\n# Concrete Element\nclass Starbucks(CoffeeShop):\n    def accept(self, visitor: Customer) -> None:\n        visitor.visit_starbucks(self)\n\n# Concrete Element\nclass TimHortons(CoffeeShop):\n    def accept(self, visitor: Customer) -> None:\n        visitor.visit_tim_hortons(self)\n\n# Client\ndef main() -> None:\n    starbucks = Starbucks()\n    tim_hortons = TimHortons()\n\n    coffee_lover = CoffeeLover()\n\n    starbucks.accept(coffee_lover) # Coffee lover is ordering a Latte at Starbucks.\n    tim_hortons.accept(coffee_lover) # Coffee lover is ordering a Double Double at Tim Hortons.\n\nif __name__ == \"__main__\":\n    main()"
     },
