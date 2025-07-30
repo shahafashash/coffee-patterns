@@ -93,10 +93,25 @@ jobs:
         fi
 
         # Check for malicious file extensions
-        if find . -name "*.exe" -o -name "*.bat" -o -name "*.cmd" -o -name "*.scr" -not -path "./.git/*" -not -path "./.cache/*"; then
-          echo "::error::Potentially malicious file types detected"
+        echo "🔍 Checking for potentially malicious file types..."
+        MALICIOUS_COUNT=0
+        
+        # Check each extension separately for better error reporting
+        for ext in exe bat cmd scr; do
+          FILES=$(find . -name "*.$ext" -not -path "./.git/*" -not -path "./.cache/*" -not -path "./node_modules/*" 2>/dev/null | head -10)
+          if [ -n "$FILES" ]; then
+            echo "::error::Found potentially malicious .$ext files:"
+            echo "$FILES"
+            MALICIOUS_COUNT=$((MALICIOUS_COUNT + 1))
+          fi
+        done
+        
+        if [ $MALICIOUS_COUNT -gt 0 ]; then
+          echo "::error::$MALICIOUS_COUNT type(s) of potentially malicious files detected"
           exit 1
         fi
+        
+        echo "✅ No malicious file types found"
 
         # Check for suspicious URLs
         if grep -r "bit\.ly\|tinyurl\|t\.co" . --exclude-dir=.git --exclude-dir=.cache 2>/dev/null; then
