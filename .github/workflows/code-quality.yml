@@ -127,13 +127,13 @@ jobs:
 
     - name: 📝 Comment PR with Quality Report
       if: github.event_name == 'pull_request'
-      uses: actions/github-script@v4
+      uses: actions/github-script@v6
       with:
         script: |
           const fs = require('fs');
           if (fs.existsSync('quality-report.md')) {
             const report = fs.readFileSync('quality-report.md', 'utf8');
-            github.rest.issues.createComment({
+            await github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,

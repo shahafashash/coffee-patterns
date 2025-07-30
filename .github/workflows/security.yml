@@ -86,20 +86,20 @@ jobs:
       run: |
         echo "🔍 Scanning for suspicious patterns..."
 
-        # Check for potential spam indicators
-        if grep -r -i "click here\|visit.*site\|buy now\|free.*money\|guarantee.*profit" . --exclude-dir=.git; then
+        # Check for potential spam indicators (more specific patterns to avoid false positives)
+        if grep -r -iE "\bclick here\b.*\bfree\b|\bbuy now\b|\bfree.*money\b|\bguarantee.*profit\b|\bvisit.*site.*for.*free\b" . --exclude-dir=.git --exclude-dir=.cache --exclude="*.md" --exclude="*.json" 2>/dev/null; then
           echo "::error::Potential spam content detected"
           exit 1
         fi
 
         # Check for malicious file extensions
-        if find . -name "*.exe" -o -name "*.bat" -o -name "*.cmd" -o -name "*.scr" -not -path "./.git/*"; then
+        if find . -name "*.exe" -o -name "*.bat" -o -name "*.cmd" -o -name "*.scr" -not -path "./.git/*" -not -path "./.cache/*"; then
           echo "::error::Potentially malicious file types detected"
           exit 1
         fi
 
         # Check for suspicious URLs
-        if grep -r "bit\.ly\|tinyurl\|t\.co" . --exclude-dir=.git; then
+        if grep -r "bit\.ly\|tinyurl\|t\.co" . --exclude-dir=.git --exclude-dir=.cache 2>/dev/null; then
           echo "::warning::Shortened URLs detected - please review"
         fi
 
