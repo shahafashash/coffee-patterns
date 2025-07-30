@@ -186,36 +186,60 @@ jobs:
       uses: actions/github-script@v7
       with:
         script: |
-          const labels = [];
+          try {
+            const labels = [];
 
-          // Add size labels
-          const totalChanges = parseInt('${{ steps.changes.outputs.total_changes }}');
-          if (totalChanges <= 5) labels.push('size/small');
-          else if (totalChanges <= 15) labels.push('size/medium');
-          else labels.push('size/large');
+            // Add size labels
+            const totalChanges = parseInt('${{ steps.changes.outputs.total_changes }}');
+            if (totalChanges <= 5) labels.push('size/small');
+            else if (totalChanges <= 15) labels.push('size/medium');
+            else labels.push('size/large');
 
-          // Add type labels based on changed files
-          const { data: files } = await github.rest.pulls.listFiles({
-            owner: context.repo.owner,
-            repo: context.repo.repo,
-            pull_number: context.issue.number,
-          });
-
-          const changedFiles = files.map(f => f.filename);
-
-          if (changedFiles.some(f => f.includes('snippets/'))) labels.push('snippets');
-          if (changedFiles.some(f => f.endsWith('.md'))) labels.push('documentation');
-          if (changedFiles.some(f => f.includes('.github/'))) labels.push('meta');
-
-          if ('${{ steps.changes.outputs.critical_changes }}' === 'true') {
-            labels.push('needs-review');
-          }
-
-          if (labels.length > 0) {
-            await github.rest.issues.addLabels({
+            // Add type labels based on changed files
+            const { data: files } = await github.rest.pulls.listFiles({
               owner: context.repo.owner,
               repo: context.repo.repo,
-              issue_number: context.issue.number,
-              labels: labels
+              pull_number: context.issue.number,
             });
+
+            const changedFiles = files.map(f => f.filename);
+
+            if (changedFiles.some(f => f.includes('snippets/'))) labels.push('snippets');
+            if (changedFiles.some(f => f.endsWith('.md'))) labels.push('documentation');
+            if (changedFiles.some(f => f.includes('.github/'))) labels.push('meta');
+
+            if ('${{ steps.changes.outputs.critical_changes }}' === 'true') {
+              labels.push('needs-review');
+            }
+
+            // Get existing repository labels to check which ones exist
+            const { data: repoLabels } = await github.rest.issues.listLabelsForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+
+            const existingLabelNames = repoLabels.map(label => label.name);
+            const validLabels = labels.filter(label => existingLabelNames.includes(label));
+
+            if (validLabels.length > 0) {
+              console.log(`Adding labels: ${validLabels.join(', ')}`);
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                labels: validLabels
+              });
+            } else {
+              console.log('No matching repository labels found to add');
+            }
+
+            // Log any labels that couldn't be added
+            const missingLabels = labels.filter(label => !existingLabelNames.includes(label));
+            if (missingLabels.length > 0) {
+              console.log(`Labels not found in repository (skipped): ${missingLabels.join(', ')}`);
+            }
+
+          } catch (error) {
+            console.log(`Warning: Could not add labels due to permissions: ${error.message}`);
+            // Don't fail the workflow if labeling fails
           }

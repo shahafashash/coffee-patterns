@@ -24,14 +24,14 @@ jobs:
       uses: actions/setup-node@v4
       with:
         node-version: '18'
-        cache: 'npm'
 
     - name: 📦 Install Dependencies
       run: |
-        if [ -f "package.json" ]; then
+        if [ -f "package-lock.json" ] || [ -f "yarn.lock" ]; then
+          echo "📦 Installing npm dependencies..."
           npm ci
         else
-          echo "ℹ️ No package.json found, skipping npm install"
+          echo "ℹ️ No dependency lock file found, skipping npm install (snippets-only extension)"
         fi
 
     - name: 🧹 Lint JSON Files
@@ -127,7 +127,7 @@ jobs:
 
     - name: 📝 Comment PR with Quality Report
       if: github.event_name == 'pull_request'
-      uses: actions/github-script@v7
+      uses: actions/github-script@v4
       with:
         script: |
           const fs = require('fs');

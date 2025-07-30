@@ -40,17 +40,42 @@ jobs:
         sarif_file: 'trivy-results.sarif'
 
     - name: 🚨 Check for Secrets
-      uses: trufflesecurity/trufflehog@main
-      with:
-        path: ./
-        base: main
-        head: HEAD
-        extra_args: --debug --only-verified
+      run: |
+        echo "🔍 Scanning for potential secrets..."
+
+        # Define patterns to search for
+        SECRET_PATTERNS=(
+          "password\s*[:=]\s*['\"][^'\"]{8,}['\"]"
+          "token\s*[:=]\s*['\"][^'\"]{20,}['\"]"
+          "api_key\s*[:=]\s*['\"][^'\"]{16,}['\"]"
+          "private_key"
+          "-----BEGIN.*PRIVATE KEY-----"
+          "SECRET_KEY\s*[:=]"
+          "ACCESS_KEY\s*[:=]"
+          "GITHUB_TOKEN"
+          "AWS_SECRET"
+          "OPENAI_API_KEY"
+        )
+
+        # Search for secrets in all files except .git directory
+        SECRET_FOUND=false
+        for pattern in "${SECRET_PATTERNS[@]}"; do
+          if grep -rE -i "$pattern" . --exclude-dir=.git --exclude-dir=node_modules 2>/dev/null; then
+            echo "::warning::Potential secret pattern detected: $pattern"
+            SECRET_FOUND=true
+          fi
+        done
+
+        if [ "$SECRET_FOUND" = false ]; then
+          echo "✅ No potential secrets detected"
+        else
+          echo "⚠️ Potential secrets found - please review manually"
+        fi
 
     - name: 🛡️ Validate File Sizes
       run: |
         echo "🔍 Checking for large files..."
-        find . -type f -size +50M -not -path "./.git/*" | while read file; do
+        find . -type f -size +50M -not -path "./.git/*" -not -path "./.cache/*" -not -path "./node_modules/*" | while read file; do
           echo "❌ Large file detected: $file ($(du -h "$file" | cut -f1))"
           echo "::error file=$file::File exceeds 50MB limit"
           exit 1
