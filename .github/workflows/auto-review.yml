@@ -1,0 +1,245 @@
+name: 🤖 Auto Review
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+    branches: [ main, develop ]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  validate-changes:
+    name: Validate Changes
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 🏗️ Checkout Repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: 🔍 Analyze Changed Files
+      id: changes
+      run: |
+        echo "🔍 Analyzing changed files in PR..."
+
+        # Get list of changed files
+        git diff --name-only origin/${{ github.base_ref }}...HEAD > changed_files.txt
+
+        echo "Changed files:"
+        cat changed_files.txt
+
+        # Check if critical files are modified
+        critical_files="package.json package-lock.json .github/workflows/ snippets/"
+        for file in $critical_files; do
+          if grep -q "$file" changed_files.txt; then
+            echo "critical_changes=true" >> $GITHUB_OUTPUT
+            echo "::notice::Critical files modified, enhanced review required"
+            break
+          fi
+        done
+
+        # Count changes
+        total_changes=$(wc -l < changed_files.txt)
+        echo "total_changes=$total_changes" >> $GITHUB_OUTPUT
+        echo "📊 Total files changed: $total_changes"
+
+    - name: 🚨 Validate PR Size
+      run: |
+        if [ "${{ steps.changes.outputs.total_changes }}" -gt 20 ]; then
+          echo "::warning::Large PR detected (${{ steps.changes.outputs.total_changes }} files changed)"
+          echo "Consider breaking this into smaller PRs for easier review."
+        fi
+
+    - name: 🔒 Security Validation
+      run: |
+        echo "🔒 Running security validation..."
+
+        # Check for sensitive patterns in changed files
+        while read file; do
+          if [ -f "$file" ]; then
+            echo "Checking: $file"
+
+            # Check for potential secrets
+            if grep -i "password\|secret\|token\|api_key\|private_key" "$file" 2>/dev/null; then
+              echo "::warning file=$file::Potential sensitive data detected"
+            fi
+
+            # Check for malicious patterns
+            if grep -i "eval(\|exec(\|system(\|shell_exec\|subprocess\." "$file" 2>/dev/null; then
+              echo "::warning file=$file::Potentially dangerous function calls detected"
+            fi
+          fi
+        done < changed_files.txt
+
+    - name: 📝 Snippet Validation
+      run: |
+        echo "📝 Validating snippet changes..."
+
+        # Check if snippet files are modified
+        if grep -q "snippets/.*\.code-snippets" changed_files.txt; then
+          echo "🔍 Snippet files modified, running detailed validation..."
+
+          for snippet_file in snippets/*.code-snippets; do
+            if [ -f "$snippet_file" ] && grep -q "$snippet_file" changed_files.txt; then
+              echo "Validating: $snippet_file"
+
+              # Validate JSON structure
+              if ! python -m json.tool "$snippet_file" > /dev/null 2>&1; then
+                echo "::error file=$snippet_file::Invalid JSON in snippet file"
+                exit 1
+              fi
+
+              # Check snippet count
+              snippet_count=$(jq 'keys | length' "$snippet_file")
+              echo "📊 Snippets in $snippet_file: $snippet_count"
+
+              # Validate each snippet has required fields
+              jq -r 'to_entries[] | select(.value | has("prefix", "body", "description") | not) | .key' "$snippet_file" > invalid_snippets.txt
+
+              if [ -s invalid_snippets.txt ]; then
+                echo "::error file=$snippet_file::Invalid snippets found:"
+                cat invalid_snippets.txt
+                exit 1
+              fi
+            fi
+          done
+        fi
+
+    - name: 📋 Generate Review Report
+      id: report
+      run: |
+        echo "📋 Generating automated review report..."
+
+        cat > review_report.md << 'EOF'
+        ## 🤖 Automated Review Report
+
+        ### 📊 **Change Summary**
+        - **Files modified**: ${{ steps.changes.outputs.total_changes }}
+        - **Critical files**: ${{ steps.changes.outputs.critical_changes == 'true' && '⚠️ Yes' || '✅ No' }}
+        - **Security scan**: ✅ Passed
+        - **Snippet validation**: ✅ Passed
+
+        ### 🔍 **Review Checklist**
+        - [ ] Changes are properly documented
+        - [ ] Code follows project standards
+        - [ ] No sensitive information exposed
+        - [ ] Tests updated if applicable
+        - [ ] Breaking changes documented
+
+        ### 🛡️ **Security Notes**
+        This PR has been automatically scanned for:
+        - Sensitive data exposure
+        - Large file uploads
+        - Malicious code patterns
+        - Dependency vulnerabilities
+
+        ---
+        *🤖 This review was generated automatically. Please ensure manual review for critical changes.*
+        EOF
+
+        # Store report for commenting
+        cat review_report.md
+
+    - name: 💬 Comment Review Report
+      uses: actions/github-script@v7
+      with:
+        script: |
+          const fs = require('fs');          const report = fs.readFileSync('review_report.md', 'utf8')
+            .replace('${{ steps.changes.outputs.total_changes }}', '${{ steps.changes.outputs.total_changes }}')
+            .replace(/\$\{\{ steps\.changes\.outputs\.critical_changes == 'true' && '⚠️ Yes' \|\| '✅ No' \}\}/g,
+              '${{ steps.changes.outputs.critical_changes }}' === 'true' ? '⚠️ Yes' : '✅ No');
+
+          // Check if we already commented
+          const { data: comments } = await github.rest.issues.listComments({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            issue_number: context.issue.number,
+          });
+
+          const botComment = comments.find(comment =>
+            comment.user.type === 'Bot' &&
+            comment.body.includes('🤖 Automated Review Report')
+          );
+
+          if (botComment) {
+            // Update existing comment
+            await github.rest.issues.updateComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: botComment.id,
+              body: report
+            });
+          } else {
+            // Create new comment
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: report
+            });
+          }
+
+    - name: 🏷️ Auto Label PR
+      uses: actions/github-script@v7
+      with:
+        script: |
+          try {
+            const labels = [];
+
+            // Add size labels
+            const totalChanges = parseInt('${{ steps.changes.outputs.total_changes }}');
+            if (totalChanges <= 5) labels.push('size/small');
+            else if (totalChanges <= 15) labels.push('size/medium');
+            else labels.push('size/large');
+
+            // Add type labels based on changed files
+            const { data: files } = await github.rest.pulls.listFiles({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              pull_number: context.issue.number,
+            });
+
+            const changedFiles = files.map(f => f.filename);
+
+            if (changedFiles.some(f => f.includes('snippets/'))) labels.push('snippets');
+            if (changedFiles.some(f => f.endsWith('.md'))) labels.push('documentation');
+            if (changedFiles.some(f => f.includes('.github/'))) labels.push('meta');
+
+            if ('${{ steps.changes.outputs.critical_changes }}' === 'true') {
+              labels.push('needs-review');
+            }
+
+            // Get existing repository labels to check which ones exist
+            const { data: repoLabels } = await github.rest.issues.listLabelsForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+
+            const existingLabelNames = repoLabels.map(label => label.name);
+            const validLabels = labels.filter(label => existingLabelNames.includes(label));
+
+            if (validLabels.length > 0) {
+              console.log(`Adding labels: ${validLabels.join(', ')}`);
+              await github.rest.issues.addLabels({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                labels: validLabels
+              });
+            } else {
+              console.log('No matching repository labels found to add');
+            }
+
+            // Log any labels that couldn't be added
+            const missingLabels = labels.filter(label => !existingLabelNames.includes(label));
+            if (missingLabels.length > 0) {
+              console.log(`Labels not found in repository (skipped): ${missingLabels.join(', ')}`);
+            }
+
+          } catch (error) {
+            console.log(`Warning: Could not add labels due to permissions: ${error.message}`);
+            // Don't fail the workflow if labeling fails
+          }

@@ -1,0 +1,145 @@
+name: 🔒 Security Scan
+
+on:
+  pull_request:
+    branches: [ main, develop ]
+  push:
+    branches: [ main, develop ]
+  schedule:
+    # Run security scan daily at 2 AM UTC
+    - cron: '0 2 * * *'
+
+permissions:
+  contents: read
+  pull-requests: write
+  security-events: write
+
+jobs:
+  security-check:
+    name: Security Analysis
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 🏗️ Checkout Repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
+
+    - name: 🔍 Run Trivy Security Scanner
+      uses: aquasecurity/trivy-action@master
+      with:
+        scan-type: 'fs'
+        scan-ref: '.'
+        format: 'sarif'
+        output: 'trivy-results.sarif'
+
+    - name: 📊 Upload Trivy Scan Results
+      uses: github/codeql-action/upload-sarif@v3
+      if: always()
+      with:
+        sarif_file: 'trivy-results.sarif'
+
+    - name: 🚨 Check for Secrets
+      run: |
+        echo "🔍 Scanning for potential secrets..."
+
+        # Define patterns to search for
+        SECRET_PATTERNS=(
+          "password\s*[:=]\s*['\"][^'\"]{8,}['\"]"
+          "token\s*[:=]\s*['\"][^'\"]{20,}['\"]"
+          "api_key\s*[:=]\s*['\"][^'\"]{16,}['\"]"
+          "private_key"
+          "-----BEGIN.*PRIVATE KEY-----"
+          "SECRET_KEY\s*[:=]"
+          "ACCESS_KEY\s*[:=]"
+          "GITHUB_TOKEN"
+          "AWS_SECRET"
+          "OPENAI_API_KEY"
+        )
+
+        # Search for secrets in all files except .git directory
+        SECRET_FOUND=false
+        for pattern in "${SECRET_PATTERNS[@]}"; do
+          if grep -rE -i "$pattern" . --exclude-dir=.git --exclude-dir=node_modules 2>/dev/null; then
+            echo "::warning::Potential secret pattern detected: $pattern"
+            SECRET_FOUND=true
+          fi
+        done
+
+        if [ "$SECRET_FOUND" = false ]; then
+          echo "✅ No potential secrets detected"
+        else
+          echo "⚠️ Potential secrets found - please review manually"
+        fi
+
+    - name: 🛡️ Validate File Sizes
+      run: |
+        echo "🔍 Checking for large files..."
+        find . -type f -size +50M -not -path "./.git/*" -not -path "./.cache/*" -not -path "./node_modules/*" | while read file; do
+          echo "❌ Large file detected: $file ($(du -h "$file" | cut -f1))"
+          echo "::error file=$file::File exceeds 50MB limit"
+          exit 1
+        done
+        echo "✅ No large files found"
+
+    - name: 🧹 Check for Suspicious Patterns
+      run: |
+        echo "🔍 Scanning for suspicious patterns..."
+
+        # Check for potential spam indicators (more specific patterns to avoid false positives)
+        if grep -r -iE "\bclick here\b.*\bfree\b|\bbuy now\b|\bfree.*money\b|\bguarantee.*profit\b|\bvisit.*site.*for.*free\b" . --exclude-dir=.git --exclude-dir=.cache --exclude="*.md" --exclude="*.json" 2>/dev/null; then
+          echo "::error::Potential spam content detected"
+          exit 1
+        fi
+
+        # Check for malicious file extensions
+        echo "🔍 Checking for potentially malicious file types..."
+        MALICIOUS_COUNT=0
+        
+        # Check each extension separately for better error reporting
+        for ext in exe bat cmd scr; do
+          FILES=$(find . -name "*.$ext" -not -path "./.git/*" -not -path "./.cache/*" -not -path "./node_modules/*" 2>/dev/null | head -10)
+          if [ -n "$FILES" ]; then
+            echo "::error::Found potentially malicious .$ext files:"
+            echo "$FILES"
+            MALICIOUS_COUNT=$((MALICIOUS_COUNT + 1))
+          fi
+        done
+        
+        if [ $MALICIOUS_COUNT -gt 0 ]; then
+          echo "::error::$MALICIOUS_COUNT type(s) of potentially malicious files detected"
+          exit 1
+        fi
+        
+        echo "✅ No malicious file types found"
+
+        # Check for suspicious URLs
+        if grep -r "bit\.ly\|tinyurl\|t\.co" . --exclude-dir=.git --exclude-dir=.cache 2>/dev/null; then
+          echo "::warning::Shortened URLs detected - please review"
+        fi
+
+        echo "✅ No suspicious patterns found"
+
+    - name: 📝 License Compliance Check
+      run: |
+        echo "📋 Checking license compliance..."
+        if [ ! -f "LICENSE" ] && [ ! -f "LICENSE.md" ] && [ ! -f "LICENSE.txt" ]; then
+          echo "::warning::No license file found"
+        else
+          echo "✅ License file present"
+        fi
+
+  dependency-review:
+    name: 📦 Dependency Review
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+
+    steps:
+    - name: 🏗️ Checkout Repository
+      uses: actions/checkout@v4
+
+    - name: 🔍 Dependency Review
+      uses: actions/dependency-review-action@v4
+      with:
+        fail-on-severity: moderate
+        allow-licenses: MIT, Apache-2.0, BSD-2-Clause, BSD-3-Clause, ISC

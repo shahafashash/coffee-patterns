@@ -1,0 +1,74 @@
+# 🤖 Dependabot Configuration
+# Automatically keep dependencies up to date and secure
+
+version: 2
+updates:
+  # NPM Dependencies (if package.json exists)
+  - package-ecosystem: "npm"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 5
+    reviewers:
+      - "yourusername"
+    assignees:
+      - "yourusername"
+    labels:
+      - "dependencies"
+      - "security"
+      - "automated"
+    commit-message:
+      prefix: "🔒"
+      prefix-development: "🔧"
+      include: "scope"
+    # Security updates
+    allow:
+      - dependency-type: "all"
+    # Ignore patch updates for stable dependencies
+    ignore:
+      - dependency-name: "*"
+        update-types: ["version-update:semver-patch"]
+    # Auto-merge security updates
+    auto-merge:
+      dependency-type: "security-updates"
+      update-types: ["version-update:semver-patch", "version-update:semver-minor"]
+
+  # GitHub Actions Updates
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "06:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 3
+    reviewers:
+      - "yourusername"
+    labels:
+      - "github-actions"
+      - "dependencies"
+      - "automated"
+    commit-message:
+      prefix: "⚡"
+      include: "scope"
+
+  # Docker Dependencies (if Dockerfile exists)
+  - package-ecosystem: "docker"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+      time: "07:00"
+      timezone: "UTC"
+    open-pull-requests-limit: 2
+    reviewers:
+      - "yourusername"
+    labels:
+      - "docker"
+      - "dependencies"
+      - "automated"
+    commit-message:
+      prefix: "🐳"
