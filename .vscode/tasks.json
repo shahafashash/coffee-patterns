@@ -1,53 +1,66 @@
 {
-    "version": "2.0.0",
-    "tasks": [
+    "version":"2.0.0",
+    "tasks":[
         {
-            "label": "📦 Package Extension",
-            "type": "shell",
-            "command": "vsce",
-            "args": ["package"],
-            "group": {
-                "kind": "build",
-                "isDefault": true
+            "label":"📦 Package Extension",
+            "type":"shell",
+            "command":"vsce",
+            "args":[
+                "package"
+            ],
+            "group":{
+                "kind":"build",
+                "isDefault":true
             },
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "shared"
+            "presentation":{
+                "echo":true,
+                "reveal":"always",
+                "focus":false,
+                "panel":"shared"
             },
-            "problemMatcher": []
+            "problemMatcher":[
+
+            ]
         },
         {
-            "label": "🧪 Install Extension Locally",
-            "type": "shell",
-            "command": "code",
-            "args": ["--install-extension", "coffee-patterns-1.1.0.vsix"],
-            "group": "build",
-            "dependsOn": "📦 Package Extension",
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "shared"
+            "label":"🧪 Install Extension Locally",
+            "type":"shell",
+            "command":"code",
+            "args":[
+                "--install-extension",
+                "coffee-patterns-1.1.0.vsix"
+            ],
+            "group":"build",
+            "dependsOn":"📦 Package Extension",
+            "presentation":{
+                "echo":true,
+                "reveal":"always",
+                "focus":false,
+                "panel":"shared"
             }
         },
         {
-            "label": "🔍 Validate Snippets",
-            "type": "shell",
-            "command": "python",
-            "args": ["-m", "json.tool"],
-            "options": {
-                "shell": {
-                    "args": ["-c", "for file in snippets/*.code-snippets; do echo \"Validating $file\"; python -m json.tool \"$file\" > /dev/null && echo \"✅ Valid\" || echo \"❌ Invalid\"; done"]
+            "label":"🔍 Validate Snippets",
+            "type":"shell",
+            "command":"python",
+            "args":[
+                "-m",
+                "json.tool"
+            ],
+            "options":{
+                "shell":{
+                    "args":[
+                        "-c",
+                        "for file in snippets/*.code-snippets; do echo \"Validating $file\"; python -m json.tool \"$file\" > /dev/null && echo \"✅ Valid\" || echo \"❌ Invalid\"; done"
+                    ]
                 }
             },
-            "group": "test",
-            "presentation": {
-                "echo": true,
-                "reveal": "always",
-                "focus": false,
-                "panel": "shared"
+            "group":"test",
+            "presentation":{
+                "echo":true,
+                "reveal":"always",
+                "focus":false,
+                "panel":"shared"
             }
         }
     ]
